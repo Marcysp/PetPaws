@@ -1,0 +1,372 @@
+:root{
+    --hitam-abu-huruf:#3c3c3d;
+    --font-body: 'Poppins', sans-serif;
+}
+*{
+    font-family: var(--font-body) !important;
+}
+/* header */
+.container-fluid{
+    margin: 5px 70px;
+}
+.offcanvas{
+    width: 200px !important;
+}
+.navbar-brand{
+    font-family: 'Dancing Script', cursive !important;
+    margin: 0;
+    padding: 0px 50px;
+    font-size: 30px;
+    text-align: left;
+    color: var(--hitam-abu-huruf) !important;
+}
+.navbar-brand span{
+    color: #08acc9 ;
+    font-family: 'Dancing Script', cursive !important;
+}
+.kelompok-menu li{
+  display: inline;
+  text-decoration: none;
+}
+.kelompok-menu a{
+  text-decoration: none;
+  color: #3c3c3d;
+  margin: 10px 5px;
+}
+a .scroll:active{
+  font-size: large;
+  font-weight: bold;
+  background-color: #08acc9;
+  color: #fff;
+  scroll-behavior: smooth;
+}
+a[tabindex]:focus {
+  color:#08acc9;
+  outline: none;
+}
+/* header end */
+
+/* slide show start */
+.utama{
+    width: 100%;
+    overflow: hidden;
+    height: 600px;
+}
+.isi{
+    width:100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+.isi_gambar{
+    width: 25%;
+    float: left;
+    position: relative;
+}
+.isi2{
+    width: 400%;
+}
+.utama img{
+    width: 100%;
+    float: left;
+}
+
+    /* content dalam slider */
+    .content {
+        width: 100%;
+        position: absolute;
+        top: 55%;
+        padding-top: 10%;
+        height: 100%;
+        transform: translateY(-50%);
+        text-align: center;
+        color: #fff;
+        background-color: rgba(17, 21, 27, 0.6);
+        justify-content: center;
+        align-items: center;
+      }
+      .content h1 {
+        font-size: 6vw;
+        margin-top: 80px;
+      }
+      .content p {
+        margin: 20px auto;
+        font-weight: 100;
+        line-height: 25px;
+        font-size: 1.7vw;
+      }
+/* slide show end */
+
+/* mengatur ukuran dan model title start */
+.row{
+    width: 100%;
+}
+.sec-padding{
+    padding: 70px 0;
+  }
+  .section-title{
+    width: 100%;
+    padding: 0 5px;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-title h2{
+    font-size: 35px;
+    text-transform: capitalize;
+  }
+  .section-title h2::before{
+    content: attr(data-title);
+    display: block;
+    font-size: 24px;
+    color: #08acc9;
+    font-weight: normal;
+    font-family: 'Dancing Script', cursive;
+  }
+  /* mengatur ukuran dan model title end */
+
+  /* ABOUT US start */
+  /* .container-conten{
+    background-color: #08acc9 !important;
+  } */
+  .about-section{
+    position: relative;
+    background-color: white;
+    z-index: 10;
+  }
+  .about-text, .about-img{
+    width: 50%;
+    padding: 0 50px;
+  }
+  .about-img img{
+    width: 100%;
+    padding-top: 30px;
+  }
+  .about-text h3{
+    font-size: 25px;
+  }
+  .about-text p{
+    text-align: justify; text-indent: 0.5in; }
+.about-text span{
+    font-family: 'Dancing Script', cursive !important;
+    font-size: larger;
+}
+.about-text span .biru{font-family: 'Dancing Script', cursive;
+color: #08acc9;}
+/* ABOUT US end*/
+
+/* resto slide start */
+.slide-resto{
+    height: 560px;
+}
+.slide-resto img{
+    align-items: center;
+}
+.carousel-control-prev,.carousel-control-next{
+    background-color: #272728;
+}
+/* resto slide shoe end */
+
+/* Search produk start*/
+.search{
+  margin: 20px;
+}
+/* search produk end */
+
+/* Daftar Menu start */
+.produk {
+    margin: 70px 50px;
+    position: relative;
+    padding: 20px;
+    background-color: white;
+    z-index: 10;
+    font-family: var(--font-body) !important;
+  }
+  .produk-container {
+    padding: 20px;
+    display: flexbox;
+    scroll-behavior: smooth;
+  }
+  .produk-card {
+    flex:none;
+    width: 250px;
+    height: 450px;
+    margin-top: 20px;
+    margin-right: 40px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    font-family: var(--font-body) !important;
+    background-color: #fff;
+  }
+  .produk-image {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 350px;
+    border-radius: 10px;
+  }
+  .produk-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .discount-tag {
+    position: absolute;
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    color: #08acc9;
+    right: 10px;
+    top: 10px;
+    text-transform: capitalize;
+  }
+  .card-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    width: 90%;
+    text-transform: capitalize;
+    border: none;
+    outline: none;
+    background: #fff;
+    border-radius: 5px;
+    transition: 0.5s;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .card-btn a{
+    text-decoration: none;
+    color: #3c3c3d;
+  }
+  .produk-card:hover .card-btn {
+    opacity: 1;
+  }
+
+  .card-btn:hover {
+    background: #08acc9;
+    color: #fff;
+  }
+  .produk-info {
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    text-align: left;
+  }
+  .produk-brand {
+    text-transform: uppercase;
+  }
+  .price {
+    font-weight: 800;
+    font-size: 20px;
+  }
+
+  .actual-price {
+    margin-left: 20px;
+    opacity: 0.5;
+    text-decoration: line-through;
+    font-size: 15px;
+  }
+  .produk-kategori{
+    font-weight: bold;
+    color: #08acc9;
+  }
+/* daftar menu end */
+
+/* form tambah menu start */
+.tambah-menu ul{
+  list-style: none;
+}
+.tambah-menu p{
+  color: #5d5d6a;
+}
+/* form tambah menu end */
+
+/* -------------------
+Footer
+----------------- */
+.footer{
+    padding: 50px 0;
+    background-color: #272728;
+    position: relative;
+    color: white;
+    z-index: 1;
+  }
+  .footer-item{
+    width: calc(100%/3);
+    padding: 0 30px;
+    text-align: center;
+  }
+  .footer-item-jam{
+    float: left;
+    margin-left: 60px;
+    text-align: justify;
+  }
+  .footer-item-jam .jam{
+    text-align: right;
+  }
+  .footer-item h3{
+    text-transform: capitalize;
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0 0 15px;
+  }
+  .footer-item p{
+    line-height: 30px;
+  }
+  .footer-item .social-link a{
+    display: inline;
+  }
+  .social-link i{
+    margin: 10px;
+  }
+/* footer end */
+
+/* default btn */
+.default-btn {
+  width: 16.9vw;
+  padding: 15px 0;
+  text-align: center;
+  margin: 20px 10px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: 1px solid #08acc9;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.default-btn a{
+  color: #3c3c3d;
+  text-decoration: none;
+}
+.default-btn a:hover{
+  color: white;
+  text-decoration: none;
+}
+
+.cover {
+  background: #08acc9;
+  height: 100%;
+  width: 0%;
+  border-radius: 25px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: 0.5s;
+}
+
+button:hover span {
+  width: 100%;
+  color: white;
+}
+
+button:hover {
+  border: 1px solid #08acc9;
+}
+/* default btn end */
