@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori_hewan;
 use App\Models\Produk;
 use App\Models\Produk_brand;
 use App\Models\Produk_kategori;
@@ -9,14 +10,22 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
-    public function index(){
-        $produk =  Produk::all();
+    public function index(Request $request){
+        if ($request->has('search')) {
+            // $produk =  Produk::where(['nama_produk','LIKE','%' .$request->search]);
+            $produk =  Produk::where('nama_produk','LIKE','%' .$request->search. '%')->paginate(5);
+        } else {
+            $produk =  Produk::paginate(5);
+        }
+
+
         return view('layouts.admin.produk',compact(['produk']));
     }
     public function create(){
+        $hewan = Kategori_hewan::all();
         $kategori = Produk_kategori::all();
         $brand = Produk_brand::all();
-        return view('layouts.admin.tambahProduk',compact(['kategori','brand']));
+        return view('layouts.admin.tambahProduk',compact(['kategori','brand','hewan']));
     }
     public function store(Request $request){
         // dd($request->all());
@@ -46,10 +55,11 @@ class ProdukController extends Controller
     }
     public function edit($id)
     {
+        $hewan = Kategori_hewan::all();
         $kategori = Produk_kategori::all();
         $brand = Produk_brand::all();
         $produk = Produk::find($id);
-        return view('layouts.admin.editProduk',compact(['produk','kategori','brand']));
+        return view('layouts.admin.editProduk',compact(['produk','kategori','brand','hewan']));
     }
     public function update($id, Request $request)
     {
@@ -63,5 +73,9 @@ class ProdukController extends Controller
         $produk->delete();
         return redirect('/produk');
 
+    }
+    public function stok(){
+        $produk =  Produk::all();
+        return view('layouts.admin.stok',compact(['produk']));
     }
 }

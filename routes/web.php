@@ -4,6 +4,7 @@ use App\Http\Controllers\Produk_brandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\Produk_kategoriController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +20,10 @@ use App\Http\Controllers\Produk_kategoriController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/nav', function () {
-    return view('layouts.admin.headerNav');
-});
 Route::get('/main', function () {
+    return view('layouts.admin.sidenav');
+});
+Route::get('/test', function () {
     return view('test');
 });
 Route::get('/login', function () {
@@ -34,6 +35,8 @@ Route::post('/produk/store', [ProdukController::class, 'store']);
 Route::get('/produk/{id}/edit', [ProdukController::class, 'edit']);
 Route::put('/produk/{id}', [ProdukController::class, 'update']);
 Route::get('/produk/delete/{id}', [ProdukController::class, 'destroy']);
+
+Route::get('/stok', [ProdukController::class, 'stok']);
 
 Route::get('/kategori', [Produk_kategoriController::class, 'index']);
 Route::post('/kategori/store', [Produk_kategoriController::class, 'store']);
@@ -47,3 +50,5 @@ Route::get('/brand/{id}/edit', [Produk_brandController::class, 'edit']);
 Route::put('/brand/{id}', [Produk_brandController::class, 'update']);
 Route::get('/brand/delete/{id}', [Produk_brandController::class, 'destroy']);
 
+Route::get('/register', [RegisterController::class, 'index']);
+Route::post('/register', [RegisterController::class, 'store']);

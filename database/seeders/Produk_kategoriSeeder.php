@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Produk_kategori;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,8 +14,8 @@ class Produk_kategoriSeeder extends Seeder
     public function run(): void
     {
         for ($i=0; $i <= 5 ; $i++) {
-            produk_kategori::create([
-                'nama_kategori'=>Str::random(30)
+            Produk_kategori::create([
+                'nama_kategori'=>string::random(30),
             ]);
         }
     }

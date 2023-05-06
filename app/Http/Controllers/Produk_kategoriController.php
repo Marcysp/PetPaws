@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori_hewan;
 use App\Models\Produk_kategori;
 use Illuminate\Http\Request;
 
 class Produk_kategoriController extends Controller
 {
     public function index(){
+        $hewan = Kategori_hewan::all();
         $kategori =  Produk_kategori::all();
-        return view('layouts.admin.kategori',compact(['kategori']));
+        return view('layouts.admin.kategori',compact(['kategori','hewan']));
     }
     public function store(Request $request){
         // dd($request->all());
