@@ -14,4 +14,5 @@
 <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet" />
 <!-- Boxiocns CDN Link -->
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<!-- Link Bootstrap -->
 

@@ -13,11 +13,10 @@ class ProdukController extends Controller
     public function index(Request $request){
         if ($request->has('search')) {
             // $produk =  Produk::where(['nama_produk','LIKE','%' .$request->search]);
-            $produk =  Produk::where('nama_produk','LIKE','%' .$request->search. '%')->paginate(5);
+            $produk =  Produk::where('nama_produk','LIKE','%' .$request->search. '%')->paginate(20);
         } else {
-            $produk =  Produk::paginate(5);
+            $produk =  Produk::paginate(20);
         }
-
 
         return view('layouts.admin.produk',compact(['produk']));
     }
@@ -29,7 +28,7 @@ class ProdukController extends Controller
     }
     public function store(Request $request){
         // dd($request->all());
-        $request->validate([
+        $validateData = $request->validate([
             'produk_kategori_id' => 'required',
             'produk_brand_id' => 'required',
             'nama_produk' => 'required',
@@ -45,6 +44,7 @@ class ProdukController extends Controller
             'img.required' => 'Silahkan masukkan foto',
             'img.mimes' => 'Foto hanya diperbolehkan berekstensi JPEG, JPG dan PNG'
         ]);
+
         $produk = Produk::create($request->except(['token','submit']));
         if ($request->hasFile(('img'))) {
             $request->file('img')->move('assets/img/imgData/',$request->file('img')->getClientOriginalName());

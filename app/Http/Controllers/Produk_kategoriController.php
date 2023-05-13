@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori_hewan;
+use App\Models\Produk_brand;
 use App\Models\Produk_kategori;
 use Illuminate\Http\Request;
 
 class Produk_kategoriController extends Controller
 {
     public function index(){
+        $brand = Produk_brand::all();
         $hewan = Kategori_hewan::all();
         $kategori =  Produk_kategori::all();
-        return view('layouts.admin.kategori',compact(['kategori','hewan']));
+        return view('layouts.admin.kategori',compact(['kategori','hewan','brand']));
     }
     public function store(Request $request){
         // dd($request->all());

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\kategoriHewanController;
+use App\Http\Controllers\loginController;
 use App\Http\Controllers\Produk_brandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
@@ -23,13 +25,13 @@ Route::get('/', function () {
 Route::get('/main', function () {
     return view('layouts.admin.sidenav');
 });
-Route::get('/test', function () {
-    return view('test');
+Route::get('/home', function () {
+    return view('layouts.user.landing');
 });
-Route::get('/login', function () {
-    return view('login');
-});
+
 Route::get('/produk', [ProdukController::class, 'index']);
+// Route::get('/produk', [ProdukController::class, 'index'])->middleware('auth');
+// Route::get('/produk', [ProdukController::class, 'index'])->middleware('guest');
 Route::get('/produk/create', [ProdukController::class, 'create']);
 Route::post('/produk/store', [ProdukController::class, 'store']);
 Route::get('/produk/{id}/edit', [ProdukController::class, 'edit']);
@@ -44,11 +46,22 @@ Route::get('/kategori/{id}/edit', [Produk_kategoriController::class, 'edit']);
 Route::put('/kategori/{id}', [Produk_kategoriController::class, 'update']);
 Route::get('/kategori/delete/{id}', [Produk_kategoriController::class, 'destroy']);
 
-Route::get('/brand', [Produk_brandController::class, 'index']);
+Route::post('/hewan/store', [kategoriHewanController::class, 'store']);
+Route::get('/hewan/{id}/edit', [kategoriHewanController::class, 'edit']);
+Route::put('/hewan/{id}', [kategoriHewanController::class, 'update']);
+Route::get('/hewan/delete/{id}', [kategoriHewanController::class, 'destroy']);
+
 Route::post('/brand/store', [Produk_brandController::class, 'store']);
 Route::get('/brand/{id}/edit', [Produk_brandController::class, 'edit']);
 Route::put('/brand/{id}', [Produk_brandController::class, 'update']);
 Route::get('/brand/delete/{id}', [Produk_brandController::class, 'destroy']);
 
-Route::get('/register', [RegisterController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/login', [loginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [loginController::class, 'authenticate']);
+Route::post('/logout', [loginController::class, 'logout']);
+
+// User
+// Route::get('/login', [loginController::class, 'index'])->name('home');

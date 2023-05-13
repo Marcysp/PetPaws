@@ -4,6 +4,6 @@
     @method('put')
     @csrf
     <label for="">Nama Brand</label><br>
-    <input type="text" name="nama_brand" value="{{$brand->nama_brand}}"><br>
+    <input type="text" required name="nama_brand" value="{{$brand->nama_brand}}"><br>
     <input type="submit" name="submit" value="Update">
 </form>

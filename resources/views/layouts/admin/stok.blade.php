@@ -1,10 +1,11 @@
 @extends('layouts.admin.main')
+@section('title') Stok @endsection
 @section('href') # @endsection
 @section('title-nav-1') Produk @endsection
 @section('title-nav-2') Stok @endsection
 @section('content')
 <div class="flex">
-    <div class="rounded-xl mx-10 my-4 p-2 bg-white">
+    <div class="rounded-xl mx-10 my-4 p-2 bg-white min-w-fit">
         <h3 class="text-blue-500 p-3 font-semibold"><i class='bx bx-check-shield'></i></i> Stok Tersedia</h3>
         <table class="py-2 my-2 text-center">
             <tr class="p-3 h-8 text-slate-800 divide-y-2 divide-y-reverse divide-slate-500">
@@ -32,7 +33,7 @@
             @endforeach
         </table>
     </div>
-    <div class="rounded-xl m-3 p-2 bg-white">
+    <div class="rounded-xl m-3 p-2 bg-white min-w-fit">
         <h3 class="text-red-500 p-3 font-semibold"><i class='bx bx-alarm-exclamation px-1'></i> Stok hampir habis!</h3>
         <table class="py-2 my-2 text-center">
             <tr class="p-3 h-8 text-slate-800 divide-y-2 divide-y-reverse divide-slate-500">

@@ -1,9 +1,10 @@
 @extends('layouts.admin.main')
+@section('title') Produk @endsection
 @section('href') # @endsection
 @section('title-nav-1') Produk @endsection
 @section('title-nav-2') Daftar Produk @endsection
 @section('content')
-<div class="rounded-xl mx-10 my-4 p-6 bg-white">
+<div class="rounded-xl mx-10 my-4 p-6 bg-white min-w-fit">
     <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
         <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-pink-400 text-white hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-500">
             <a href="/produk/create">Tambah Produk</a>
@@ -17,12 +18,11 @@
                     <input type="search" name="search" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
                   </div>
             </form>
-
         </div>
       </div>
 
     <table class="py-4 my-5 text-center">
-        <tr class="p-5 h-10 text-slate-800 divide-y-2 divide-y-reverse divide-slate-500">
+        <tr class="p-2 h-10 text-slate-800 divide-y-2 divide-y-reverse divide-slate-500">
             <th class="w-32">No</th>
             <th class="w-52">Gambar</th>
             <th class="w-60">nama</th>
@@ -31,7 +31,7 @@
         </tr>
         <?php  $i = 0?>
         @foreach ($produk as $p)
-        <tr class="py-6 my-6 h-16 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200 overflow-hidden">
+        <tr class="py-6 my-6 h-16 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200">
             <td>{{++$i}}</td>
             <td><center><div class="h-16 rounded-lg w-24 overflow-hidden grid place-items-center"><img class="rounded-lg object-center object-fill" src="{{ asset("assets/img/imgData/$p->img") }}" alt="{{$p->nama_produk}}"></div></center></td>
             <td>{{$p->nama_produk}}</td>

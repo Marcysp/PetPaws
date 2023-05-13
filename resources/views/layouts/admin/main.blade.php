@@ -9,16 +9,15 @@
     @include('layouts.link')
   </head>
 
-  <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-white text-slate-500 overflow-x-hidden">
+  <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-white text-slate-500 overflow-x-hidden scroll-smooth">
         @include('layouts.admin.sidenav')
-        <section class="home-section">
+        <section class="home-section bg-slate-200 overflow-y-auto">
             @include('layouts.admin.navbar')
             <div>
                 @yield('content')
             </div>
+            @include('layouts.admin.footer')
         </section>
-
-    @include('layouts.admin.footer')
     @include('layouts.script')
   </body>
 

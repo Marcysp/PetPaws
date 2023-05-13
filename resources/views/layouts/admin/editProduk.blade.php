@@ -36,7 +36,7 @@
             </div>
             <div class="mx-10 w-3/5">
                 <label for="" class="block text-sm font-medium leading-6 text-slate-800">Deskripsi</label>
-                <textarea name="deskripsi" cols="30" rows="5" class="block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3">{{$produk->deskripsi}}</textarea>
+                <textarea name="deskripsi" required cols="30" rows="5" class="block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3">{{$produk->deskripsi}}</textarea>
                 <button type="button" class="my-6 py-3 px-4 inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold bg-pink-400 text-white hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-500">
                     <input type="submit" name="submit" value="Save" class="cursor-pointer">
                 </button>

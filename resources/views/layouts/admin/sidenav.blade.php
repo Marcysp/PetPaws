@@ -27,8 +27,6 @@
                 <li><a href="/produk/create">Tambah Produk</a></li>
                 <li><a href="/stok">Stok</a></li>
                 <li><a href="/kategori">Kategori</a></li>
-                <li><a href="/brand">Brand</a></li>
-
             </ul>
         </li>
         <li class="hover:bg-pink-400 hover:text-white">
@@ -115,7 +113,10 @@
                     <div class="profile_name text-white">Prem Shahi</div>
                     <div class="job">Web Desginer</div>
                 </div>
-                <i class='bx bx-log-out'></i>
+                <form action="/logout" method="post">
+                    @csrf
+                    <button type="submit"><i class='bx bx-log-out'></i></button>
+                </form>
             </div>
         </li>
     </ul>

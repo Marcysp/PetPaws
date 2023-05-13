@@ -19,6 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('produk_brand_id');
             $table->foreign('produk_brand_id')->references('id')->on('produk_brand');
 
+            $table->unsignedBigInteger('kategori_hewan_id');
+            $table->foreign('kategori_hewan_id')->references('id')->on('kategori_hewan');
+
             $table->string('nama_produk');
             $table->integer('harga');
             $table->text('deskripsi');
