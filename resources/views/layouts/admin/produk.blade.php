@@ -21,19 +21,19 @@
         </div>
       </div>
 
-    <table class="py-4 my-5 text-center">
+    <table class="p-4 my-5 text-center w-full">
         <tr class="p-2 h-10 text-slate-800 divide-y-2 divide-y-reverse divide-slate-500">
-            <th class="w-32">No</th>
-            <th class="w-52">Gambar</th>
-            <th class="w-60">nama</th>
-            <th class="w-32">harga</th>
-            <th class="w-32">Aksi</th>
+            <th class="w-1/12">No</th>
+            <th class="w-1/5">Gambar</th>
+            <th class="w-1/5">nama</th>
+            <th class="w-2/6">harga</th>
+            <th class="w-2/6">Aksi</th>
         </tr>
         <?php  $i = 0?>
         @foreach ($produk as $p)
         <tr class="py-6 my-6 h-16 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200">
             <td>{{++$i}}</td>
-            <td><center><div class="h-16 rounded-lg w-24 overflow-hidden grid place-items-center"><img class="rounded-lg object-center object-fill" src="{{ asset("assets/img/imgData/$p->img") }}" alt="{{$p->nama_produk}}"></div></center></td>
+            <td><center><div class="h-16 rounded-lg w-24 overflow-hidden grid items-center"><img class="rounded-lg object-center object-fill" src="{{ asset("assets/img/imgData/$p->img") }}" alt="{{$p->nama_produk}}"></div></center></td>
             <td>{{$p->nama_produk}}</td>
             <td>{{$p->harga}}</td>
             <td><button class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-0"><a href="/produk/{{$p->id}}/edit"><i class='bx bx-message-square-edit'></i></a></button>
