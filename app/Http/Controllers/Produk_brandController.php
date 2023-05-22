@@ -15,7 +15,7 @@ class Produk_brandController extends Controller
     public function edit($id)
     {
         $brand = Produk_brand::find($id);
-        return view('layouts.admin.editBrand',compact(['brand']));
+        return view('layouts.admin.kategori',compact(['brand']));
     }
     public function update($id, Request $request)
     {

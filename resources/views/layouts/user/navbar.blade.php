@@ -11,23 +11,51 @@
                 <div class="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
                     <ul class="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
                         <li class="nav-item">
-                            <a href="#" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500" target="_blank">Home</a>
+                            <a href="/landing" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500" target="_blank">Profile</a>
+                            <a href="#" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500" target="_blank">Service</a>
+                            <a href="#" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500">Service</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500" target="_blank">Products</a>
+                            <a href="/produk" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500" target="_blank">Contact Us</a>
+                            <a href="#" class="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500">Contact Us</a>
+                        </li>
+
+                        @auth
+                        <li class="nav-item">
+                            <?php
+                            $pesanan_utama = \App\Models\Pesanan::where('user_id',Auth::user()->id)->where('status','keranjang')->first();
+
+                            if (!empty($pesanan_utama)) {
+                                $notif = \App\Models\Detail_pesanan::where('pesanan_id',$pesanan_utama->id)->count();
+                            }
+                            ?>
+                            <a href="/keranjang" class="block px-4 pt-0 pb-1 font-bold transition-colors ease-soft-in-out text-2xl text-slate-700 hover:text-slate-500"><i class='bx bxs-cart'></i>
+                                @if (!empty($notif))
+                                <span class="inline-flex items-center rounded-md bg-red-500 px-2 py-1 text-sm font-semibold text-white">{{$notif}}</span>
+                                @endif
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="block px-4 pt-0 pb-1 font-semibold transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500" target="_blank"><i class='bx bx-log-in'></i>Login</a>
+                            <form action="/logout" method="post">
+                                @csrf
+                                <button type="submit" class="block px-4 pt-0 pb-1 font-semibold transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500"><i class='bx bx-log-out'></i>Logout</button>
+                            </form>
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a href="/keranjang" class="block px-4 pt-0 pb-1 font-bold transition-colors ease-soft-in-out text-2xl text-slate-700 hover:text-slate-500"><i class='bx bxs-cart'></span></i></a>
+                        </li
+                        <li class="nav-item">
+                            <a href="/login" class="block px-4 pt-0 pb-1 font-semibold transition-colors ease-soft-in-out text-base text-slate-700 hover:text-slate-500"><i class='bx bx-log-in'></i>Login</a>
+                        </li>
+                        @endauth
+
                     </ul>
                 </div>
             </div>

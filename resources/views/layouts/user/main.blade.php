@@ -9,7 +9,8 @@
     @include('layouts.user.link')
   </head>
     <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-white text-slate-600">
-        <header class="bg-transparent absolute top-0 left-0 w-full flex items-center z-10 py-4">
+        @include('layouts.user.navbar')
+        {{-- <header class="bg-transparent absolute top-0 left-0 w-full flex items-center z-10 py-4">
             <div class="container">
                 <div class="flex items-center justify-between relative">
                     <div class="px-4">
@@ -25,14 +26,15 @@
                     </div>
                 </div>
             </div>
-        </header>
+        </header> --}}
         {{-- @include('layouts.user.navbar') --}}
         <div>
             @yield('content')
         </div>
 
     @include('layouts.admin.footer')
-    {{-- @include('layouts.script') --}}
+    @include('layouts.script')
+    @yield('script-alert')
   </body>
 
 </html>

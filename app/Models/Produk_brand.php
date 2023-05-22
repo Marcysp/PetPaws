@@ -12,4 +12,9 @@ class Produk_brand extends Model
     // protected $fillable = ['nama']
     // untuk mengatasi error fillable bisa digantikan dengan guarded
     protected $guarded = [];
+    
+    public function produk()
+    {
+        return $this->hasMany(Produk::class);
+    }
 }

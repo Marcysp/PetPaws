@@ -1,16 +1,16 @@
-<div class="sidebar close text-slate-700">
+<div class="sidebar close text-slate-700 z-10">
     <div class="logo-details">
         <img src="{{ asset("assets/img/logo-web/petPaws-logo.png") }}" alt="petPaws">
         <span class="logo_name">PetPaws</span>
     </div>
     <ul class="nav-links">
         <li class="hover:bg-pink-400 hover:text-white">
-            <a href="#">
+            <a href="/dashboard">
                 <i class='bx bx-grid-alt'></i>
                 <span class="link_name">Dashboard</span>
             </a>
             <ul class="sub-menu blank">
-                <li><a class="link_name" href="#">Dashboard</a></li>
+                <li><a class="link_name" href="/dashboard">Dashboard</a></li>
             </ul>
         </li>
         <li class="hover:bg-pink-400 hover:text-white">

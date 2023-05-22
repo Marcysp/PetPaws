@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,7 +10,8 @@ class loginController extends Controller
 {
     public function index()
     {
-        return view('login');
+        $user =  User::all();
+        return view('login',compact(['user']));
     }
 
     public function authenticate(Request $request)
@@ -20,8 +22,14 @@ class loginController extends Controller
         ]);
 
         if(Auth::attempt($credentials)){
-            $request->session()->regenerate();
-            return redirect()->intended('/produk');
+            if (auth()->user()->is_admin == 0) {
+                $request->session()->regenerate();
+                return redirect()->intended('/landing');
+            }else {
+                $request->session()->regenerate();
+                return redirect()->intended('/dashboard');
+            }
+
         }
         return back()->with('loginError','Login failed');
     }
@@ -34,6 +42,6 @@ class loginController extends Controller
 
         request()->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/landing');
     }
 }

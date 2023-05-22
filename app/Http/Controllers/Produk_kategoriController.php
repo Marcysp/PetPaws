@@ -23,7 +23,7 @@ class Produk_kategoriController extends Controller
     public function edit($id)
     {
         $kategori = Produk_kategori::find($id);
-        return view('layouts.admin.editKategori',compact(['kategori']));
+        return view('layouts.admin.kategori',compact(['kategori']));
     }
     public function update($id, Request $request)
     {

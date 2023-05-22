@@ -15,7 +15,7 @@ class kategoriHewanController extends Controller
     public function edit($id)
     {
         $hewan = Kategori_hewan::find($id);
-        return view('layouts.admin.editHewan',compact(['hewan']));
+        return view('layouts.admin.kategori',compact(['hewan']));
     }
     public function update($id, Request $request)
     {

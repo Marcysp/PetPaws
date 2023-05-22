@@ -13,10 +13,25 @@ class Produk_kategoriSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i <= 5 ; $i++) {
-            Produk_kategori::create([
-                'nama_kategori'=>string::random(30),
-            ]);
-        }
+        Produk_kategori::create([
+            'nama_kategori' => 'Makanan',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Produk_kategori::create([
+            'nama_kategori' => 'Vitamin',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Produk_kategori::create([
+            'nama_kategori' => 'Aksesoris',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Produk_kategori::create([
+            'nama_kategori' => 'Lainnya',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

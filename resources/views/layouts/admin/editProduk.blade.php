@@ -14,7 +14,7 @@
                 <label for="" class="block text-sm font-medium leading-6 text-slate-800 mb-3">Harga</label>
                 <input type="text" name="harga" required value="{{$produk->harga}}" class="block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3"><br>
                 <label for="" class="block text-sm font-medium leading-6 text-slate-800 mb-3">Gambar</label>
-                <input type="file" name="img" value="{{$produk->img}}" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px- file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-400 hover:file:bg-pink-100" required><br>
+                <input type="file" name="img" value="{{$produk->img}}" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px- file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-400 hover:file:bg-pink-100"><br>
                 <select required class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" aria-label="Default select example" name="produk_kategori_id">
                     <option selected>Kategori Produk</option>
                     @foreach ($kategori as $k)
