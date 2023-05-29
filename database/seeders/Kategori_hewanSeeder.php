@@ -31,7 +31,12 @@ class Kategori_hewanSeeder extends Seeder
             'updated_at' => now()
         ]);
         Kategori_hewan::create([
-            'nama_hewan' => 'Burung',
+            'nama_hewan' => 'ayam',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Kategori_hewan::create([
+            'nama_hewan' => 'lainnya',
             'created_at' => now(),
             'updated_at' => now()
         ]);

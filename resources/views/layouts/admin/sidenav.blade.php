@@ -30,27 +30,27 @@
             </ul>
         </li>
         <li class="hover:bg-pink-400 hover:text-white">
+            <a href="/service-paket">
+                <i class='bx bx-list-plus'></i>
+                <span class="link_name">Paket Service</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/service-paket">Paket-service</a></li>
+            </ul>
+        </li>
+        <li class="hover:bg-pink-400 hover:text-white">
             <div class="iocn-link">
                 <a href="#">
                     <i class='bx bx-line-chart'></i>
-                    <span class="link_name">Posts</span>
+                    <span class="link_name">Service</span>
                 </a>
                 <i class='bx bxs-chevron-down arrow'></i>
             </div>
             <ul class="sub-menu">
-                <li><a class="link_name" href="#">Posts</a></li>
+                <li><a class="link_name" href="#">Service</a></li>
                 <li><a href="#">Web Design</a></li>
                 <li><a href="#">Login Form</a></li>
                 <li><a href="#">Card Design</a></li>
-            </ul>
-        </li>
-        <li class="hover:bg-pink-400 hover:text-white">
-            <a href="#">
-                <i class='bx bx-list-plus'></i>
-                <span class="link_name">Order</span>
-            </a>
-            <ul class="sub-menu blank">
-                <li><a class="link_name" href="#">Order</a></li>
             </ul>
         </li>
         <li class="hover:bg-pink-400 hover:text-white">

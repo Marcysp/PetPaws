@@ -8,3 +8,4 @@
 <script src="{{ asset("assets/js/soft-ui-dashboard-tailwind.js") }}" async></script>
 <!-- cript file navbar -->
 <script src="{{ asset("assets/js/index.js") }}" async></script>
+

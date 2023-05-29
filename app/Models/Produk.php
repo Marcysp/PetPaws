@@ -17,6 +17,10 @@ class Produk extends Model
     {
         return $this->hasMany(Detail_pesanan::class);
     }
+    public function detail_grooming()
+    {
+        return $this->hasMany(Detail_grooming::class);
+    }
     public function produk_brand()
     {
         return $this->belongsTo(Produk_brand::class);

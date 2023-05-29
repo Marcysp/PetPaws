@@ -64,31 +64,7 @@
         </table>
     </div>
 </div>
-
-@foreach ($produk as $p)
-{{-- modal --}}
-<div id="editModal{{$p->id}}" class="modal-manual fade myModal" tabindex="-1" role="dialog">
-    <div class="modal-content-manual" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Stok Produk</h5>
-                <span class="close-manual" id="close{{$p->id}}">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('stok.update', $p->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group">
-                        <label for="stok{{$p->id}}">Stok:</label>
-                        <input type="number" name="stok" id="stok{{$p->id}}" class="form-control" value="{{$p->stok}}">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
+@include('layouts.admin.edit-stok-modal')
 @endsection
 
 @section('script-manual')

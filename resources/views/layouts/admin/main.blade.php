@@ -9,7 +9,7 @@
     @include('layouts.link')
   </head>
 
-  <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-white text-slate-500 overflow-x-hidden scroll-smooth">
+  <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-white text-slate-500 overflow-hidden scroll-smooth">
         @include('layouts.admin.sidenav')
         <section class="home-section bg-slate-200 overflow-y-auto">
             @include('layouts.admin.navbar')

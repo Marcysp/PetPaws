@@ -15,10 +15,11 @@ class ProdukController extends Controller
         if ($request->has('search')) {
             // $produk =  Produk::where(['nama_produk','LIKE','%' .$request->search]);
             $produk =  Produk::where('nama_produk','LIKE','%' .$request->search. '%')
-            ->orWhere('deskripsi','LIKE','%' .$request->search. '%')
-            ->paginate(20);
+            ->orWhere('deskripsi','LIKE','%' .$request->search. '%');
+            // ->paginate(20);
         } else {
-            $produk =  Produk::paginate(20);
+            $produk =  Produk::all();
+            // $produk =  Produk::paginate(20);
         }
 
         if (auth()->user()->is_admin == 0) {
