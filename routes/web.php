@@ -9,6 +9,7 @@ use App\Http\Controllers\Produk_brandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\Produk_kategoriController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StokController;
@@ -37,6 +38,7 @@ Route::get('/landing', function () {
 
 // Route::get('/produk', [ProdukController::class, 'index'])->middleware('auth');
 Route::get('/produk', [ProdukController::class, 'index'])->middleware('auth');
+
 Route::group(['middleware' => ['auth','is_admin:1']],function(){
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -79,10 +81,18 @@ Route::group(['middleware' => ['auth','is_admin:0']],function(){
     Route::get('/keranjang', [PesanController::class, 'keranjang']);
     Route::delete('/keranjang/{id}', [PesanController::class, 'delete']);
 
-    Route::get('konfirmasi-pesanan',[PesanController::class, 'konfirmasi']);
-    
+    // Route::get('konfirmasi-pesanan',[PesanController::class, 'konfirmasi']);
+    Route::post('check-out',[PesanController::class, 'checkout']);
+    Route::get('/pay',[PesanController::class, 'pay'])->name('pay');
+    Route::post('/midtrans-callingback',[PesanController::class, 'callback']);
+    Route::get('/histori',[PesanController::class, 'histori']);
+
     Route::get('/grooming', [GroomingController::class, 'index']);
     Route::post('/service/grooming/{id}', [GroomingController::class, 'pesan']);
+    Route::get('/list/grooming', [GroomingController::class, 'keranjang']);
+    Route::delete('/list/grooming/{id}', [GroomingController::class, 'delete']);
+
+    Route::get('/profile', [ProfileController::class, 'index']);
 });
 // guest
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');

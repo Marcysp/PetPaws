@@ -17,10 +17,14 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->date('tanggal_pesanan');
             $table->integer('total');
+            $table->string('nama')->nullable();
             $table->text('alamat')->nullable();
             $table->string('no_hp')->nullable();
             $table->enum('status',['keranjang','checkout'])->default('keranjang');
             $table->enum('dilayani',['terlayani','proses'])->default('proses');
+            $table->enum('paid',['paid','unpaid'])->default('unpaid');
+            $table->text('token');
+
             $table->timestamps();
         });
     }

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('paket_penitipan_id');
+            $table->foreign('paket_penitipan_id')->references('id')->on('paket_penitipan');
             $table->date('tanggal_masuk');
             $table->date('tanggal_keluar');
             $table->string('nama_hewan');
@@ -22,7 +24,7 @@ return new class extends Migration
             $table->string('riwayat_penyakit');
             $table->text('alamat');
             $table->string('no_hp');
-            $table->enum('hewan',['anjing','kucing']);
+            $table->enum('hewan',['anjing','kucing'])  ;
             $table->integer('total');
             $table->enum('status',['list','checkout'])->default('list');
             $table->enum('dilayani',['terlayani','proses'])->default('proses');

@@ -1,5 +1,5 @@
 @extends('layouts.user.main')
-@section('title') produk @endsection
+@section('title') Grooming @endsection
 @section('content')
 <div class="container mx-auto mt-10">
     <div class="flex shadow-md my-10">
@@ -8,7 +8,7 @@
           <h1 class="font-semibold text-2xl">Shopping Cart</h1>
           <h2 class="font-semibold text-2xl">3 Items</h2>
         </div>
-        @if (!empty($pesanan))
+        @if (!empty($grooming))
         <div class="flex mt-10 mb-5">
             <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
             <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Quantity</h3>
@@ -16,16 +16,16 @@
             <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Total</h3>
           </div>
           <?php $no = 1;?>
-          @foreach ($detail_pesanan as $detail_pesanan)
+          @foreach ($detail_grooming as $detail_grooming)
           <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
               <div class="flex w-2/5"> <!-- product -->
                 <div class="w-20">
                   <img class="h-24" src="{{ asset("assets/img/imgData/1646182822261.jpg") }}" alt="">
                 </div>
                 <div class="flex flex-col justify-between ml-4 flex-grow">
-                  <span class="font-bold text-sm">{{$detail_pesanan->produk->nama_produk}}</span>
+                  <span class="font-bold text-sm">{{$detail_grooming->paket_grooming->jenis_grooming}}</span>
                   <span class="text-red-500 text-xs">Apple</span>
-                  <form action="keranjang/{{$detail_pesanan->id}}" method="post">
+                  <form action="/list/grooming/{{$detail_grooming->id}}" method="post">
                       @csrf
                       {{ method_field('DELETE')}}
                       <button type="submit" class="font-semibold hover:text-red-500 text-gray-500 text-xs" >Remove</button>
@@ -36,14 +36,14 @@
                 <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
                 </svg>
 
-                <input class="mx-2 border text-center w-8" type="text" value="{{$detail_pesanan->qty}}">
+                {{-- <input class="mx-2 border text-center w-8" type="text" value="{{$detail_grooming->}}"> --}}
 
                 <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
                   <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
                 </svg>
               </div>
-              <span class="text-center w-1/5 font-semibold text-sm">{{$detail_pesanan->produk->harga}}</span>
-              <span class="text-center w-1/5 font-semibold text-sm">{{$detail_pesanan->subtotal}}</span>
+              <span class="text-center w-1/5 font-semibold text-sm">{{$detail_grooming->paket_grooming->harga}}</span>
+              {{-- <span class="text-center w-1/5 font-semibold text-sm">{{$detail_grooming->subtotal}}</span> --}}
           </div>
           @endforeach
         <a href="#" class="flex font-semibold text-indigo-600 text-sm mt-10">
@@ -73,25 +73,19 @@
         <div class="border-t mt-8">
           <div class="flex font-semibold justify-between py-6 text-sm uppercase">
             <span>Total cost</span>
-            <span>{{$pesanan->total}}</span>
+            <span>{{$grooming->total}}</span>
           </div>
-          <form action="/check-out" method="post">
-            @csrf
-            <label for="alamat" class="font-semibold inline-block mb-3 text-sm uppercase">alamat</label>
-            <input type="text" id="alamat" name="alamat" class="p-2 text-sm w-full">
-            <label for="nama" class="font-semibold inline-block mb-3 text-sm uppercase">nama</label>
-            <input type="text" id="nama" name="nama" class="p-2 text-sm w-full">
-            <label for="no_hp" class="font-semibold inline-block mb-3 text-sm uppercase">no_tlp</label>
-            <input type="text" id="no_hp" name="no_hp" class="p-2 text-sm w-full">
-            <button type="submit" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</button>
-          </form>
-
-        {{-- <button type="submit" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+          {{-- <form action="" method="post">
+            <button type="submit" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+                <a href="/konfirmasi-pesanan"></a>
+            </button>
+          </form> --}}
+        <button type="submit" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
             <a href="/konfirmasi-pesanan">checkout</a>
-        </button> --}}
+        </button>
         </div>
       </div>
       @endif
     </div>
-  </div>
+</div>
 @endsection

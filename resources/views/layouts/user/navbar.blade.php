@@ -44,10 +44,12 @@
                             </a>
                         </li>
                         <li class="group">
-                            <form action="/logout" method="post">
+                            <a href="/profile"><button class="text-base text-black py-2 mx-4 flex group-hover:text-purple-700"><i class='bx bxs-user text-2xl'></i></button></a>
+
+                            {{-- <form action="/profile" method="post">
                                 @csrf
-                                <button type="submit" class="text-base text-black py-2 mx-4 flex group-hover:text-purple-700"><i class='bx bx-log-out text-2xl'></i>Logout</button>
-                            </form>
+                                <button type="submit" class="text-base text-black py-2 mx-4 flex group-hover:text-purple-700"><i class='bx bxs-user text-2xl'></i>Logout</button>
+                            </form> --}}
                         </li>
                         @else
                         <li class="group">

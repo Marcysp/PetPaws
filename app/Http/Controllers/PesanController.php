@@ -31,8 +31,14 @@ class PesanController extends Controller
         $cek_pesanan = Pesanan::where('user_id',Auth::user()->id)->where('status','keranjang')->first();
         if (empty($cek_pesanan))
         {
+            $timestamp = time(); // Mendapatkan timestamp saat ini
+            $randomNumber = mt_rand(1000, 9999); // Mendapatkan angka acak antara 1000 dan 9999
+
+            $transactionId = $timestamp . $randomNumber; // Menggabungkan timestamp dan angka acak
+
             // simpan ke database pesanan
             $pesanan = new Pesanan;
+            $pesanan->id = $transactionId;
             $pesanan->user_id = Auth::user()->id;
             $pesanan->tanggal_pesanan = $tanggal;
             $pesanan->status = 'keranjang';
@@ -98,12 +104,45 @@ class PesanController extends Controller
         return redirect('/keranjang');
     }
 
-    public function konfirmasi()
+    public function dilayani()
+    {
+        $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('dilayani',"proses")->first();
+        $pesanan->dilayani = 'terlayani';
+        $pesanan->update();
+
+        return redirect('/keranjang');
+    }
+    public function checkout(Request $request)
     {
         $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('status',"keranjang")->first();
         $pesanan_id = $pesanan->id;
-        $pesanan->status = 'checkout';
+        $pesanan->alamat = $request->alamat;
+        $pesanan->no_hp = $request->no_hp;
         $pesanan->tanggal_pesanan = now();
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $pesanan->id,
+                'gross_amount' => $pesanan->total,
+            ),
+            'customer_details' => array(
+                'name' => $request->nama,
+                'email' => Auth::user()->email,
+                'phone' => $request->no_hp,
+            ),
+        );
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        $pesanan->status = 'checkout';
+        $pesanan->token = $snapToken;
         $pesanan->update();
 
         $detail_pesanan = Detail_pesanan::where('pesanan_id',$pesanan_id)->get();
@@ -113,15 +152,28 @@ class PesanController extends Controller
             $produk->update();
         }
 
-        return redirect('/keranjang');
+        return redirect()->route('pay');
     }
-    public function dilayani()
+    public function pay()
     {
-        $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('dilayani',"proses")->first();
-        $pesanan->dilayani = 'terlayani';
-        $pesanan->tanggal_pesanan = now();
-        $pesanan->update();
+        $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('paid',"unpaid")->get();
 
-        return redirect('/keranjang');
+        return view('layouts.user.checkout',compact('pesanan'));
+    }
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash("SHA512",$request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        if ($hashed == $request->signature_key) {
+            if ($request->transaction_status == 'capture') {
+                $pesanan = Pesanan::find($request->order_id);
+                $pesanan->update(['paid' =>'paid']);
+            }
+        }
+    }
+    public function histori()
+    {
+        $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('paid',"paid")->get();
+        return view ('layouts.user.historiProduk',compact(['pesanan']));
     }
 }
