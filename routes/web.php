@@ -92,7 +92,7 @@ Route::group(['middleware' => ['auth','is_admin:0']],function(){
     Route::get('/list/grooming', [GroomingController::class, 'keranjang']);
     Route::delete('/list/grooming/{id}', [GroomingController::class, 'delete']);
 
-    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::get('/pesanan/produk', [ProfileController::class, 'index']);
 });
 // guest
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');

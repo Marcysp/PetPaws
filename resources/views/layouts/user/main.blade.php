@@ -9,9 +9,9 @@
     @yield('link-manual')
     @include('layouts.user.link')
   </head>
-    <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-white text-slate-600">
+    <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-white text-slate-600 overflow-y-scroll">
         @include('layouts.user.navbar')
-        <div class="h-screen">
+        <div class="min-h-screen">
             @yield('content')
         </div>
 

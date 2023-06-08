@@ -156,9 +156,12 @@ class PesanController extends Controller
     }
     public function pay()
     {
-        $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('paid',"unpaid")->get();
+        $pesanan = Pesanan::where('user_id',Auth::user()->id)->where('paid','unpaid')->get();
+        $pesanan_id = $pesanan->pluck('id');
 
-        return view('layouts.user.checkout',compact('pesanan'));
+        $detail_pesanan = Detail_pesanan::whereIn('pesanan_id',$pesanan_id)->get();
+
+        return view('layouts.user.checkout',compact(['detail_pesanan','pesanan']));
     }
     public function callback(Request $request)
     {

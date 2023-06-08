@@ -1,6 +1,5 @@
 @extends('layouts.user.profile')
-@section('title') Pesanan @endsection
-
+@section('title') Pesanan Produk @endsection
 @section('link-manual')
  <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
  <script type="text/javascript"
@@ -9,30 +8,46 @@
 @endsection
 
 @section('pesanan')
-<div class="container mx-auto mt-2">
-    <div class="my-5">
-        @foreach ($pesanan as $p)
-        <div class="bg-white px-4 py-4 mt-2 mx-3">
-            <div class="flex">
-                <div>
-                    @foreach($detail_pesanan as $dp)
-                    @if($dp->pesanan_id == $p->id)
-                        <li>{{ $dp->produk->nama_produk }}</li>
-                        <li>{{ $dp->subtotal }}</li>
-                    @endif
-                @endforeach
-                    <h5>Pesanan</h5>
-                    <p>{{$p->tanggal_pesanan}}</p>
-                    <button id="pay-button{{$p->id}}">bayar sekarang</button>
-                </div>
-            </div>
-        </div>
-        @endforeach
+@if (!empty($pesanan))
+<div class="mt-5">
+    @foreach($pesanan as $p)
+    <div class="my-2 mx-4 bg-white p-4 pesanan-item" data-category="{{ $p->paid }}">
+        <ul>
+            @foreach($detail_pesanan as $dp)
+                @if($dp->pesanan_id == $p->id)
+                    <li>{{ $dp->produk->nama_produk }}</li>
+                    <li>{{ $dp->subtotal }}</li>
+                @endif
+            @endforeach
+            @if ($p->paid == 'unpaid')
+                <button id="pay-button{{$p->id}}">bayar sekarang</button>
+            @endif
+        </ul>
     </div>
+    @endforeach
 </div>
+@endif
 @endsection
 
 @section('script-manual')
+<script>
+    function filterContent(category) {
+      const items = document.getElementsByClassName('pesanan-item');
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const itemCategory = item.getAttribute('data-category');
+
+        if (category === 'all') {
+          item.style.display = 'block';
+        } else if (itemCategory === category) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      }
+    }
+  </script>
     @foreach ($pesanan as $p)
     <script type="text/javascript">
         // For example trigger on button clicked, or any time you need
@@ -43,7 +58,7 @@
             onSuccess: function(result){
             /* You may add your own implementation here */
             // alert("payment success!");
-            window.location.href = '/pesanan'
+            window.location.href = '/histori'
             console.log(result);
             },
             onPending: function(result){
