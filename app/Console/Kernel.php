@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('pesanan:hapus-checkout')->daily(); // Menjadwalkan perintah untuk dijalankan setiap hari
+        $schedule->command('app:hapus-old-grooming')->daily(); // Menjadwalkan perintah untuk dijalankan setiap hari
     }
 
     /**

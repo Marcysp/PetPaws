@@ -25,7 +25,7 @@
                     @foreach ($kategori as $k)
                     <option value="{{$k->id}}">{{$k->nama_kategori}}</option>
                     @endforeach
-                  </select><br>
+                </select><br>
                 <select required class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" aria-label="Default select example" name="produk_brand_id">
                     <option selected>Brand Produk</option>
                     @foreach ($brand as $b)

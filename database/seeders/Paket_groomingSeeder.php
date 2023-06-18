@@ -17,7 +17,15 @@ class Paket_groomingSeeder extends Seeder
             'jenis_grooming' => 'Grooming Kering Anjing',
             'harga' => '30000',
             'deskripsi_penanganan' => 'Grooming kering yang meliputi perapihan bulu telapak kaki dan bokong, serta pembersihan telinga dan gunting kuku. Pemberian parfum opsional.',
-            'hewan' => 'anjing',
+            'hewan' => 'anjingKecil',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Paket_grooming::create([
+            'jenis_grooming' => 'Grooming Kering Anjing+',
+            'harga' => '35000',
+            'deskripsi_penanganan' => 'Grooming kering yang meliputi perapihan bulu telapak kaki dan bokong, serta pembersihan telinga dan gunting kuku. Pemberian parfum opsional.',
+            'hewan' => 'anjingBesar',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -30,10 +38,42 @@ class Paket_groomingSeeder extends Seeder
             'updated_at' => now()
         ]);
         Paket_grooming::create([
+            'jenis_grooming' => 'Grooming Bassic Anjing',
+            'harga' => '32000',
+            'deskripsi_penanganan' => 'Grooming basah dengan pemandian basah menggunakan shampo khusus yang membuat bulu lembut dan wangi.',
+            'hewan' => 'anjingKecil',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Paket_grooming::create([
+            'jenis_grooming' => 'Grooming Bassic Anjing+',
+            'harga' => '38000',
+            'deskripsi_penanganan' => 'Grooming basah dengan pemandian basah menggunakan shampo khusus yang membuat bulu lembut dan wangi.',
+            'hewan' => 'anjingBesar',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Paket_grooming::create([
+            'jenis_grooming' => 'Grooming Bassic Kucing',
+            'harga' => '29000',
+            'deskripsi_penanganan' => 'Grooming basah dengan pemandian basah menggunakan shampo khusus yang membuat bulu lembut dan wangi.',
+            'hewan' => 'kucing',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Paket_grooming::create([
             'jenis_grooming' => 'Grooming kutu Anjing',
             'harga' => '45000',
             'deskripsi_penanganan' => 'Grooming menggunakan shampoo anti-kutu yang meliputi perapihan bulu telapak kaki dan bokong, serta pembersihan telinga dan gunting kuku. Pemberian parfum opsional.',
-            'hewan' => 'anjing',
+            'hewan' => 'anjingKecil',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Paket_grooming::create([
+            'jenis_grooming' => 'Grooming kutu Anjing+',
+            'harga' => '57000',
+            'deskripsi_penanganan' => 'Grooming menggunakan shampoo anti-kutu yang meliputi perapihan bulu telapak kaki dan bokong, serta pembersihan telinga dan gunting kuku. Pemberian parfum opsional.',
+            'hewan' => 'anjingBesar',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -49,7 +89,15 @@ class Paket_groomingSeeder extends Seeder
             'jenis_grooming' => 'Grooming jamur Anjing',
             'harga' => '45000',
             'deskripsi_penanganan' => 'Grooming menggunakan shampoo anti-jamur yang meliputi perapihan bulu telapak kaki dan bokong, serta pembersihan telinga dan gunting kuku. Pemberian parfum opsional.',
-            'hewan' => 'anjing',
+            'hewan' => 'anjingKecil',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Paket_grooming::create([
+            'jenis_grooming' => 'Grooming jamur Anjing+',
+            'harga' => '60000',
+            'deskripsi_penanganan' => 'Grooming menggunakan shampoo anti-jamur yang meliputi perapihan bulu telapak kaki dan bokong, serta pembersihan telinga dan gunting kuku. Pemberian parfum opsional.',
+            'hewan' => 'anjingBesar',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -65,7 +113,15 @@ class Paket_groomingSeeder extends Seeder
             'jenis_grooming' => 'Grooming kutu + jamur Anjing',
             'harga' => '55000',
             'deskripsi_penanganan' => 'Grooming menggunakan shampoo anti-kutu+jamur yang meliputi perapihan bulu telapak kaki dan bokong, serta pembersihan telinga dan gunting kuku. Pemberian parfum opsional.',
-            'hewan' => 'anjing',
+            'hewan' => 'anjingKecil',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Paket_grooming::create([
+            'jenis_grooming' => 'Grooming kutu + jamur Anjing+',
+            'harga' => '73000',
+            'deskripsi_penanganan' => 'Grooming menggunakan shampoo anti-kutu+jamur yang meliputi perapihan bulu telapak kaki dan bokong, serta pembersihan telinga dan gunting kuku. Pemberian parfum opsional.',
+            'hewan' => 'anjingBesar',
             'created_at' => now(),
             'updated_at' => now()
         ]);

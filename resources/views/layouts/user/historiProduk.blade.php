@@ -4,6 +4,6 @@
     <p>{{$p->nama}}</p>
     <p>{{$p->alamat}}</p>
     <p>{{$p->no_hp}}</p>
-    <p>{{$p->tanggal_pesanan}}</p>
+    <p>{{ \Carbon\Carbon::parse($p->tanggal_pesanan)->format('d F Y') }}</p>
     @endforeach
 </div>

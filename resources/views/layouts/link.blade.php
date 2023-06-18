@@ -9,7 +9,7 @@
 <!-- Main Styling -->
 <link href="{{ asset('assets/css/soft-ui-dashboard-tailwind.min.css') }}" rel="stylesheet" />
 <!--link tailwind-->
-@vite('resources/css/app.css')
+@vite(['resources/css/app.css','resources/js/app.js'])
 <!--link css -->
 <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet" />
 <!-- Boxiocns CDN Link -->

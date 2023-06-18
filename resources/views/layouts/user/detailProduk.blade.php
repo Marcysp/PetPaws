@@ -16,7 +16,7 @@
                         <div class="grid w-full grid-cols-1 sm:items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8 mx-auto md:justify-items-start justify-items-center">
                             <div class="sm:col-span-4 lg:col-span-5 w-80 h-96">
                                 <div class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5 h-96">
-                                    <img src="{{ asset("assets/img/imgData/$p->img") }}" alt="" class="object-cover object-center h-full w-full">
+                                    <center><img src="{{ asset("assets/img/imgData/$p->img") }}" alt="" class="object-cover object-center h-full w-auto"></center>
                                 </div>
                             </div>
 

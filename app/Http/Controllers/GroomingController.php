@@ -8,12 +8,19 @@ use App\Models\Paket_grooming;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class GroomingController extends Controller
 {
     public function index()
     {
         $paket_grooming = Paket_grooming::all();
+        $grooming = Grooming::where('user_id',Auth::user()->id)->where('status','list')->first();
+
+        if (!empty($grooming)) {
+            $detai_grooming = Detail_grooming::where('grooming_id',$grooming->id)->count();
+            return view('layouts.user.grooming', compact('paket_grooming','detai_grooming','grooming'));
+        }
         return view('layouts.user.grooming',compact(['paket_grooming']));
     }
     public function pesan(Request $request,$id)
@@ -38,6 +45,7 @@ class GroomingController extends Controller
             $grooming->status = 'list';
             $grooming->dilayani = 'proses';
             $grooming->total = 0;
+            $grooming->token = '0yad10w2';
             $grooming->save();
         }
 
@@ -56,6 +64,7 @@ class GroomingController extends Controller
         // // total
         $grooming = Grooming::where('user_id',Auth::user()->id)->where('status','list')->first();
         $grooming->total = $grooming->total+ $paket_grooming->harga;
+        $grooming->token = '0yad10w2';
         $grooming->update();
         return redirect('grooming');
     }
@@ -65,7 +74,8 @@ class GroomingController extends Controller
 
         if (!empty($grooming)) {
             $detail_grooming = Detail_grooming::where('grooming_id',$grooming->id)->get();
-            return view('layouts.user.keranjangGrooming', compact('grooming','detail_grooming'));
+            $notif_detail_grooming = Detail_grooming::where('grooming_id',$grooming->id)->count();
+            return view('layouts.user.keranjangGrooming', compact('grooming','detail_grooming','notif_detail_grooming'));
         }
         return view('layouts.user.keranjangGrooming', compact('grooming'));
 
@@ -105,8 +115,31 @@ class GroomingController extends Controller
     }
     public function checkout(Request $request)
     {
+        $credentials = $request->validate([
+            'nama_hewan' => 'required|min:3',
+            'nama_pemilik' => 'required|min:3',
+            'alamat' => 'required|min:15',
+            'no_hp' => 'required|regex:/^\d{10,13}$/',
+            'hewan' => 'required'
+        ]);
+
         $grooming =  Grooming::where('user_id',Auth::user()->id)->where('status',"list")->first();
         $grooming_id = $grooming->id;
+
+        $detail_grooming = Detail_grooming::where('grooming_id',$grooming_id)->get();
+        foreach($detail_grooming as $dg){
+            $paket_grooming = Paket_grooming::where('id',$dg->paket_grooming_id)->first();
+            if ($paket_grooming->hewan !== $request->hewan || $paket_grooming->hewan !== 'both') {
+                Alert::error('Error', 'Paket yang anda Pilih tidak sesuai dengan jenis hewan anda');
+                return redirect('/list/grooming');
+            }
+        }
+
+        $grooming->nama_hewan = $request->nama_hewan;
+        $grooming->nama_pemilik = $request->nama_pemilik;
+        $grooming->alamat = $request->alamat;
+        $grooming->no_hp = $request->no_hp;
+        $grooming->hewan = $request->hewan;
 
         $grooming->tanggal_grooming = now();
 
@@ -136,20 +169,7 @@ class GroomingController extends Controller
         $grooming->token = $snapToken;
         $grooming->update();
 
-        $detail_pesanan = Detail_pesanan::where('pesanan_id',$pesanan_id)->get();
-        foreach($detail_pesanan as $dp){
-            $produk = Produk::where('id',$dp->produk_id)->first();
-            $produk->stok = $produk->stok-$dp->qty;
-            $produk->update();
-        }
-
-        return redirect()->route('pay');
-    }
-    public function pay()
-    {
-        $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('paid',"unpaid")->get();
-
-        return view('layouts.user.checkout',compact('pesanan'));
+        return redirect()->route('pesanan-grooming');
     }
     public function callback(Request $request)
     {
@@ -157,14 +177,14 @@ class GroomingController extends Controller
         $hashed = hash("SHA512",$request->order_id.$request->status_code.$request->gross_amount.$serverKey);
         if ($hashed == $request->signature_key) {
             if ($request->transaction_status == 'capture') {
-                $pesanan = Pesanan::find($request->order_id);
-                $pesanan->update(['paid' =>'paid']);
+                $grooming = Grooming::find($request->order_id);
+                $grooming->update(['paid' =>'paid']);
             }
         }
     }
     public function histori()
     {
-        $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('paid',"paid")->get();
-        return view ('layouts.user.historiProduk',compact(['pesanan']));
+        $grooming =  Grooming::where('user_id',Auth::user()->id)->where('paid',"paid")->get();
+        return view ('layouts.user.historipaket_grooming',compact(['grooming']));
     }
 }

@@ -79,12 +79,14 @@ class PesanController extends Controller
 
         return redirect('produk');
     }
+
     public function keranjang()
     {
         $pesanan = Pesanan::where('user_id',Auth::user()->id)->where('status','keranjang')->first();
 
         if (!empty($pesanan)) {
             $detail_pesanan = Detail_pesanan::where('pesanan_id',$pesanan->id)->get();
+
             return view('layouts.user.keranjang', compact('pesanan','detail_pesanan'));
         }
         return view('layouts.user.keranjang', compact('pesanan'));
@@ -112,12 +114,34 @@ class PesanController extends Controller
 
         return redirect('/keranjang');
     }
+    public function update(Request $request, $id)
+    {
+        $detail_pesanan = Detail_pesanan::where('id',$id)->first();
+        $produk = Produk::where('id',$detail_pesanan->produk_id)->first();
+        $subtotal_lama = $detail_pesanan->subtotal;
+        $detail_pesanan->qty = $request->qty;
+        $detail_pesanan->subtotal = $request->qty*$produk->harga;
+        $detail_pesanan->update();
+
+        $pesanan = Pesanan::where('id',$detail_pesanan->pesanan_id)->first();
+        $pesanan->total = $pesanan->total-$subtotal_lama+$detail_pesanan->subtotal;
+        $pesanan->update();
+
+        return redirect('/keranjang');
+
+    }
     public function checkout(Request $request)
     {
+        $credentials = $request->validate([
+            'nama' => 'required|min:3',
+            'alamat' => 'required|min:15',
+            'no_hp' => 'required|regex:/^\d{10,13}$/'
+        ]);
         $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('status',"keranjang")->first();
         $pesanan_id = $pesanan->id;
         $pesanan->alamat = $request->alamat;
         $pesanan->no_hp = $request->no_hp;
+        $pesanan->nama = $request->nama;
         $pesanan->tanggal_pesanan = now();
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
@@ -152,16 +176,7 @@ class PesanController extends Controller
             $produk->update();
         }
 
-        return redirect()->route('pay');
-    }
-    public function pay()
-    {
-        $pesanan = Pesanan::where('user_id',Auth::user()->id)->where('paid','unpaid')->get();
-        $pesanan_id = $pesanan->pluck('id');
-
-        $detail_pesanan = Detail_pesanan::whereIn('pesanan_id',$pesanan_id)->get();
-
-        return view('layouts.user.checkout',compact(['detail_pesanan','pesanan']));
+        return redirect()->route('pesanan-produk');
     }
     public function callback(Request $request)
     {
@@ -173,10 +188,5 @@ class PesanController extends Controller
                 $pesanan->update(['paid' =>'paid']);
             }
         }
-    }
-    public function histori()
-    {
-        $pesanan =  Pesanan::where('user_id',Auth::user()->id)->where('paid',"paid")->get();
-        return view ('layouts.user.historiProduk',compact(['pesanan']));
     }
 }

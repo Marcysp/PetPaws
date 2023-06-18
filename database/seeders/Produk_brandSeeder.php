@@ -30,5 +30,10 @@ class Produk_brandSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        Produk_brand::create([
+            'nama_brand' => 'TRIXIE',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

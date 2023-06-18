@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('status',['keranjang','checkout'])->default('keranjang');
             $table->enum('dilayani',['terlayani','proses'])->default('proses');
             $table->enum('paid',['paid','unpaid'])->default('unpaid');
-            $table->text('token');
+            $table->text('token')->nullable();;
 
             $table->timestamps();
         });

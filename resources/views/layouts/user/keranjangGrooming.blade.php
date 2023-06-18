@@ -1,91 +1,146 @@
 @extends('layouts.user.main')
-@section('title') Grooming @endsection
+@section('title') Keranjang @endsection
+
 @section('content')
-<div class="container mx-auto mt-10">
-    <div class="flex shadow-md my-10">
-      <div class="w-3/4 bg-white px-10 py-10">
-        <div class="flex justify-between border-b pb-8">
-          <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-          <h2 class="font-semibold text-2xl">3 Items</h2>
-        </div>
-        @if (!empty($grooming))
-        <div class="flex mt-10 mb-5">
-            <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
-            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Quantity</h3>
-            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Price</h3>
-            <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">Total</h3>
-          </div>
-          <?php $no = 1;?>
-          @foreach ($detail_grooming as $detail_grooming)
-          <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-              <div class="flex w-2/5"> <!-- product -->
-                <div class="w-20">
-                  <img class="h-24" src="{{ asset("assets/img/imgData/1646182822261.jpg") }}" alt="">
+    @if (!empty($detail_grooming))
+        <div class="mt-24 ml-20">
+            <div class="flex justify-between items-center">
+                <div class="items-center mr-4">
+                    <span class="text-2xl font-bold">List Paket Grooming</span>
                 </div>
-                <div class="flex flex-col justify-between ml-4 flex-grow">
-                  <span class="font-bold text-sm">{{$detail_grooming->paket_grooming->jenis_grooming}}</span>
-                  <span class="text-red-500 text-xs">Apple</span>
-                  <form action="/list/grooming/{{$detail_grooming->id}}" method="post">
-                      @csrf
-                      {{ method_field('DELETE')}}
-                      <button type="submit" class="font-semibold hover:text-red-500 text-gray-500 text-xs" >Remove</button>
-                  </form>
+                <div class="items-center mr-20">
+                    <a href="/grooming" class="flex font-semibold text-indigo-600 text-sm mt-2">
+                        <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
+                        Tambah Paket
+                    </a>
                 </div>
-              </div>
-              <div class="flex justify-center w-1/5">
-                <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512"><path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-                </svg>
+            </div>
+            <div class="mt-16">
+                <div class="relative overflow-x-auto sm:rounded-lg">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-7 py-3">
+                                    Name
+                                </th>
+                                <th scope="col" class="px-7 py-3">
+                                    Price
+                                </th>
+                                <th scope="col" class="pl-7 py-3">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($detail_grooming as $dg)
+                            <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td class="px-7 py-4 font-semibold text-gray-900 dark:text-white min-w-[50px] max-w-[100px]">
+                                    {{$dg->paket_grooming->jenis_grooming}}
+                                </td>
+                                <td class="px-7 py-4 font-semibold text-gray-900 dark:text-white">
+                                    @currency($dg->paket_grooming->harga)
+                                </td>
+                                <td class="pl-7 py-4">
+                                    <form action="/list/grooming/{{$dg->id}}" method="post">
+                                        @csrf
+                                        {{ method_field('DELETE')}}
+                                        <button type="submit" class="focus:outline-none text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-red-100 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2" >Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <form id="checkout-form" action="{{ $grooming->total > 0 ? '/check-out/grooming' : '#' }}" method="{{ $grooming->total > 0 ? 'post' : 'get' }}">
+                @csrf
+                <div class="mt-10 mr-20 w-4/6">
+                    <hr class="pb-3">
+                    <span class=" text-sm font-bold">Order Summary</span>
+                        <div class="grid gap-6 mt-3 mb-6 md:grid-cols-2">
+                            <div>
+                                <label for="nama_hewan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Peliharaan</label>
+                                <input type="text" id="nama_hewan" name="nama_hewan" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" placeholder="Nama hewan" required value="{{old('nama_hewan')}}">
+                                @error('nama_hewan')
+                                <div class="text-sm text-red-500">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="nama_pemilik" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Pemilik</label>
+                                <input type="text" id="nama_pemilik" name="nama_pemilik" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" placeholder="Nama Pemilik" required value="{{old('nama_pemilik')}}">
+                                @error('nama_pemilik')
+                                <div class="text-sm text-red-500">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div class="flex col-span-3">
+                                <div class="w-1/2 pr-5">
+                                    <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                    <textarea name="alamat" id="alamat" cols="30" rows="4" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3">{{old('alamat')}}</textarea>
+                                    @error('alamat')
+                                    <div class="text-sm text-red-500">{{$message}}</div>
+                                    @enderror
+                                </div>
+                                <div class="w-1/2 pr-5">
+                                    <div class="@error('no_hp') mb-0 @else mb-5 @enderror">
+                                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.Telp</label>
+                                        <input type="text" id="phone" name="no_hp" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3"  placeholder="No Telp" required value="{{old('no_hp')}}">
+                                        @error('no_hp')
+                                        <div class="text-sm text-red-500">{{$message}}</div>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label for="jenis_hewan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Hewan</label>
+                                        <select required class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" aria-label="Default select example" name="hewan">
+                                            <option selected disabled>Jenis Hewan</option>
+                                            <option value="anjingBesar">Anjing Besar</option>
+                                            <option value="anjingKecil">Anjing Kecil</option>
+                                            <option value="kucing">Kucing</option>
+                                        </select>
+                                        @error('hewan')
+                                        <div class="text-sm text-red-500">{{$message}}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="mt-10 mr-20 mb-40 w-[55%]">
+                    <span class=" text-sm font-bold">Payment Informations</span>
+                    <div class="grid text-sm gap-6 mt-3 mb-6 md:grid-cols-3">
+                        <div class="flex-col w-fit">
+                            <div class="text-center text-2xl">
+                                {{$notif_detail_grooming}}
+                            </div>
+                            <div>
+                                items
+                            </div>
+                        </div>
 
-                {{-- <input class="mx-2 border text-center w-8" type="text" value="{{$detail_grooming->}}"> --}}
+                        <div class="flex-col w-48">
+                            <div class="text-center text-green-500 text-2xl">
+                                @currency($grooming->total)
+                            </div>
+                            <div class="text-center">
+                                Total Pembayaran
+                            </div>
+                        </div>
+                        <button type="submit" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm w-fit px-5 py-2.5 mr-2 mb-2">Checkout Now</button>
+                    </div>
+                </div>
+            </form>
 
-                <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
-                  <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
-                </svg>
-              </div>
-              <span class="text-center w-1/5 font-semibold text-sm">{{$detail_grooming->paket_grooming->harga}}</span>
-              {{-- <span class="text-center w-1/5 font-semibold text-sm">{{$detail_grooming->subtotal}}</span> --}}
-          </div>
-          @endforeach
-        <a href="#" class="flex font-semibold text-indigo-600 text-sm mt-10">
+        </div>
+        @else
+        <div class="mt-24 ml-20">
+            <a href="/produk" class="flex font-semibold text-indigo-600 text-sm mt-10">
+                <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
+                Continue Shopping
+            </a>
+        </div>
+    @endif
+@endsection
 
-          <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
-          Continue Shopping
-        </a>
-      </div>
-
-      <div id="summary" class="w-1/4 px-8 py-10">
-        <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
-        <div class="flex justify-between mt-10 mb-5">
-          <span class="font-semibold text-sm uppercase">Items 3</span>
-          <span class="font-semibold text-sm">590$</span>
-        </div>
-        <div>
-          <label class="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
-          <select class="block p-2 text-gray-600 w-full text-sm">
-            <option>Standard shipping - $10.00</option>
-          </select>
-        </div>
-        <div class="py-10">
-          <label for="promo" class="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
-          <input type="text" id="promo" placeholder="Enter your code" class="p-2 text-sm w-full">
-        </div>
-        <button class="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
-        <div class="border-t mt-8">
-          <div class="flex font-semibold justify-between py-6 text-sm uppercase">
-            <span>Total cost</span>
-            <span>{{$grooming->total}}</span>
-          </div>
-          {{-- <form action="" method="post">
-            <button type="submit" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
-                <a href="/konfirmasi-pesanan"></a>
-            </button>
-          </form> --}}
-        <button type="submit" class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
-            <a href="/konfirmasi-pesanan">checkout</a>
-        </button>
-        </div>
-      </div>
-      @endif
-    </div>
-</div>
+@section('script-manual')
+@include('sweetalert::alert')
 @endsection

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('jenis_penitipan');
             $table->integer('harga');
             $table->text('deskripsi_layanan');
-            $table->enum('hewan',['anjing','kucing','both']);
+            $table->enum('hewan',['anjing besar','kucing','anjing kecil']);
             $table->timestamps();
         });
     }

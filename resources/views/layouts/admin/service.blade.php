@@ -2,7 +2,7 @@
 @section('title') Service @endsection
 @section('href') # @endsection
 @section('title-nav-1') Paket @endsection
-@section('title-nav-2') Kategori @endsection
+@section('title-nav-2') Service @endsection
 @section('content')
 <div class="flex min-w-fit">
     <div class="w-1/2">
@@ -22,9 +22,9 @@
                 <tr class="py-6 my-6 h-16 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200 overflow-hidden">
                     <td>{{++$n}}</td>
                     <td>{{$g->jenis_grooming}}</td>
-                    <td>{{$g->harga}}</td>
+                    <td>@format($g->harga)</td>
                     <td><button id="myBtnG{{$g->id}}" data-target="#editgrooming{{$g->id}}" class="show-modal py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-0 text-xl"><a href="#"><i class='bx bx-message-square-edit'></i></a></button>
-                        <button id="myBtnGdetail{{$g->id}}" data-target="#detailGrooming{{$g->id}}" class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-0"><a href="#"><i class='bx bxs-detail'></i></a></button>
+                        <button id="myBtnGdetail{{$g->id}}" data-target="#detailGrooming{{$g->id}}" class="py-[3px] px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-0"><a href="#"><i class='bx bxs-detail'></i></a></button>
                         <button class="py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-0 text-xl"><a href="/service-paket/grooming/delete/{{$g->id}}"><i class='bx bxs-trash'></i></a></button></td>
                 </tr>
                 {{-- Modal edit--}}
@@ -162,7 +162,7 @@
                 <tr class="py-6 my-6 h-16 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200 overflow-hidden">
                     <td>{{++$i}}</td>
                     <td>{{$p->jenis_penitipan}}</td>
-                    <td>{{$p->harga}}</td>
+                    <td>@format($p->harga)</td>
                     <td><button id="myBtnP{{$p->id}}" data-target="#editPenitipan{{$p->id}}" class="py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-0 text-xl"><a href="#"><i class='bx bx-message-square-edit'></i></a></button>
                         <button id="myBtnPdetail{{$p->id}}" data-target="#detailPenitipan{{$p->id}}" class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-0"><a href="#"><i class='bx bxs-detail'></i></a></button>
                         <button class="py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-0 text-xl"><a href="/service-paket/penitipan/delete/{{$p->id}}"><i class='bx bxs-trash'></i></a></button></td>

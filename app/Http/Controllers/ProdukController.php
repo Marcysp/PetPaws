@@ -7,23 +7,34 @@ use App\Models\Produk;
 use App\Models\Produk_brand;
 use App\Models\Produk_kategori;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
     public function index(Request $request){
+        $brand = Produk_brand::all();
+        $kategori = Produk_kategori::all();
+        $hewan = Kategori_hewan::all();
+
         if ($request->has('search')) {
-            // $produk =  Produk::where(['nama_produk','LIKE','%' .$request->search]);
-            $produk =  Produk::where('nama_produk','LIKE','%' .$request->search. '%')
-            ->orWhere('deskripsi','LIKE','%' .$request->search. '%');
-            // ->paginate(20);
+            if (auth()->user()->is_admin == 0) {
+                $produk =  Produk::where('nama_produk','LIKE','%' .$request->search. '%')
+                ->orWhere('deskripsi','LIKE','%' .$request->search. '%')
+                ->get();
+            }else {
+                $produk =  Produk::where('nama_produk','LIKE','%' .$request->search. '%')
+                ->orWhere('deskripsi','LIKE','%' .$request->search. '%')
+                ->paginate(20);
+            }
         } else {
-            $produk =  Produk::all();
-            // $produk =  Produk::paginate(20);
+            if (auth()->user()->is_admin == 0) {
+                $produk =  Produk::all();
+            }else {
+                $produk =  Produk::paginate(20);
+            }
         }
 
         if (auth()->user()->is_admin == 0) {
-            return view('layouts.user.produk',compact(['produk']));
+            return view('layouts.user.produk',compact(['produk','brand','kategori','hewan']));
         }else {
             return view('layouts.admin.produk',compact(['produk']));
         }

@@ -3,7 +3,9 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroomingController;
 use App\Http\Controllers\kategoriHewanController;
+use App\Http\Controllers\listOrderController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\PenitipanController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\Produk_brandController;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +28,19 @@ use Illuminate\Routing\RouteGroup;
 |
 */
 
-Route::get('/main', function () {
-    return view('layouts.user.main');
+Route::get('/cart1', function () {
+    return view('new.cart1');
+});
+
+Route::get('/home1', function () {
+    return view('new.home1');
+});
+
+Route::get('/pesanan', function () {
+    return view('new.pesanan');
+});
+Route::get('/pesananmasuk', function () {
+    return view('new.pesananmasuk');
 });
 Route::get('/', function () {
     return view('layouts.user.landing');
@@ -72,6 +85,10 @@ Route::group(['middleware' => ['auth','is_admin:1']],function(){
     Route::post('/service-paket/penitipan/store', [ServiceController::class, 'storePenitipan'])->name('paket-penitipan.store');
     Route::put('/service-paket/penitipan/{id}', [ServiceController::class, 'updatePenitipan'])->name('paket-penitipan.update');
     Route::get('/service-paket/penitipan/delete/{id}', [ServiceController::class, 'destroyPenitipan']);
+
+    Route::get('/admin/pesanan/grooming', [listOrderController::class, 'groomingList']);
+    Route::get('/admin/pesanan/produk', [listOrderController::class, 'produkList']);
+    Route::get('/admin/pesanan/penitipan', [listOrderController::class, 'penitipanList']);
 });
 
 // User
@@ -80,19 +97,26 @@ Route::group(['middleware' => ['auth','is_admin:0']],function(){
     Route::post('/pesan/{id}', [PesanController::class, 'pesan']);
     Route::get('/keranjang', [PesanController::class, 'keranjang']);
     Route::delete('/keranjang/{id}', [PesanController::class, 'delete']);
+    Route::post('/update/item/keranjang/{id}', [PesanController::class, 'update']);
 
-    // Route::get('konfirmasi-pesanan',[PesanController::class, 'konfirmasi']);
-    Route::post('check-out',[PesanController::class, 'checkout']);
+    Route::post('check-out/produk',[PesanController::class, 'checkout']);
     Route::get('/pay',[PesanController::class, 'pay'])->name('pay');
     Route::post('/midtrans-callingback',[PesanController::class, 'callback']);
-    Route::get('/histori',[PesanController::class, 'histori']);
 
     Route::get('/grooming', [GroomingController::class, 'index']);
     Route::post('/service/grooming/{id}', [GroomingController::class, 'pesan']);
     Route::get('/list/grooming', [GroomingController::class, 'keranjang']);
     Route::delete('/list/grooming/{id}', [GroomingController::class, 'delete']);
+    Route::post('/validate-grooming', [GroomingController::class, 'validateGrooming']);
+    Route::post('check-out/grooming',[GroomingController::class, 'checkout']);
 
-    Route::get('/pesanan/produk', [ProfileController::class, 'index']);
+    Route::get('/penitipan', [PenitipanController::class, 'index']);
+    Route::get('/service/penitipan', [PenitipanController::class, 'pesan']);
+    // Route::post('/service/penitipan/{id}', [PenitipanController::class, 'pesan']);
+
+    Route::get('/pesanan/produk', [listOrderController::class, 'userProdukList'])->name('pesanan-produk');
+    Route::get('/pesanan/grooming', [listOrderController::class, 'userGroomingList'])->name('pesanan-grooming');
+    Route::get('/pesanan/penitioan', [listOrderController::class, 'userPenitipanList'])->name('pesanan-penitioan');
 });
 // guest
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');

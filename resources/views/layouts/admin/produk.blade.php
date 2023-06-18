@@ -15,12 +15,11 @@
                     <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
                         <i class='bx bx-search-alt z-10'></i>
                     </span>
-                    <input type="search" name="search" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
-                  </div>
+                    <input type="search" name="search" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow px-10" placeholder="Type here..." />
+                </div>
             </form>
         </div>
       </div>
-
     <table class="p-4 my-5 text-center w-full">
         <tr class="p-2 h-10 text-slate-800 divide-y-2 divide-y-reverse divide-slate-500">
             <th class="w-1/12">No</th>
@@ -29,13 +28,13 @@
             <th class="w-2/6">harga</th>
             <th class="w-2/6">Aksi</th>
         </tr>
-        <?php  $i = 0?>
+        <?php  $i = ($produk->currentPage() - 1) * $produk->perPage(); ?>
         @foreach ($produk as $p)
         <tr class="py-6 my-6 h-16 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200">
             <td>{{++$i}}</td>
-            <td><center><div class="h-16 rounded-lg w-24 overflow-hidden grid items-center"><img class="rounded-lg object-center object-fill" src="{{ asset("assets/img/imgData/$p->img") }}" alt="{{$p->nama_produk}}"></div></center></td>
-            <td>{{$p->nama_produk}}</td>
-            <td>{{$p->harga}}</td>
+            <td><center><div class="h-16 rounded-lg w-14 overflow-hidden grid items-center"><img class="rounded-lg object-center object-fill" src="{{ asset("assets/img/imgData/$p->img") }}" alt="{{$p->nama_produk}}"></div></center></td>
+            <td>{{Str::words($p->nama_produk, 5)}}</td>
+            <td>@format($p->harga)</td>
             <td><button class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-0"><a href="/produk/{{$p->id}}/edit"><i class='bx bx-message-square-edit'></i></a></button>
                 <button id="myBtn{{$p->id}}" data-target="#detailProduk{{$p->id}}" class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-0"><a href="#"><i class='bx bxs-detail'></i></a></button>
                 <button class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-0"><a href="/produk/delete/{{$p->id}}"><i class='bx bxs-trash'></i></a></button>
@@ -45,9 +44,9 @@
         <div id="editModal{{$p->id}}" class="modal-manual fade myModal" tabindex="-1" role="dialog">
             <div class="modal-content-manual" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{$p->nama_produk}}</h5>
-                        <span class="close-manual" id="close{{$p->id}}">&times;</span>
+                    <div class="flex">
+                        <h3 class="modal-title  mt-4 mx-6 text-xl text-slate-900">{{$p->nama_produk}}</h3>
+                        <span class="close-manual mt-5 mx-5" id="close{{$p->id}}">&times;</span>
                     </div>
                     <div class="flex">
                         <div class="w-2/5 mx-6">
@@ -72,6 +71,8 @@
         </div>
         @endforeach
     </table>
+    @include('layouts.admin.pagination', ['paginator' => $produk])
+
 </div>
 @endsection
 

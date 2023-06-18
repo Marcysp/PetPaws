@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ProdukSeeder::class,
             UserSeeder::class,
             Paket_groomingSeeder::class,
+            Paket_penitipanSeeder::class,
         ]);
     }
 }

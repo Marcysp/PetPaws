@@ -24,10 +24,12 @@ return new class extends Migration
             $table->string('riwayat_penyakit');
             $table->text('alamat');
             $table->string('no_hp');
-            $table->enum('hewan',['anjing','kucing'])  ;
+            $table->enum('hewan',['anjing besar','kucing','anjing kecil'])  ;
             $table->integer('total');
             $table->enum('status',['list','checkout'])->default('list');
             $table->enum('dilayani',['terlayani','proses'])->default('proses');
+            $table->enum('paid',['paid','unpaid'])->default('unpaid');
+            $table->text('token')->nullable();
             $table->timestamps();
         });
     }

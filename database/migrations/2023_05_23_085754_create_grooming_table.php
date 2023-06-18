@@ -20,12 +20,12 @@ return new class extends Migration
             $table->string('nama_pemilik')->nullable();
             $table->text('alamat')->nullable();
             $table->string('no_hp')->nullable();
-            $table->enum('hewan',['anjing','kucing']);
+            $table->enum('hewan',['anjingBesar','anjingKecil','kucing']);
             $table->integer('total')->nullable();
             $table->enum('status',['list','checkout'])->default('list');
             $table->enum('dilayani',['terlayani','proses'])->default('proses');
             $table->enum('paid',['paid','unpaid'])->default('unpaid');
-            $table->text('token');
+            $table->text('token')->nullable();
             $table->timestamps();
         });
     }

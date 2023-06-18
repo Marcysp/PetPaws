@@ -1,6 +1,6 @@
 <div class="sidebar close text-slate-700 z-10">
     <div class="logo-details">
-        <img src="{{ asset("assets/img/logo-web/petPaws-logo.png") }}" alt="petPaws">
+        <img src="{{ asset("assets/img/logo-web/petPaws-logo.png") }}" alt="petPaws" class="z-0">
         <span class="logo_name">PetPaws</span>
     </div>
     <ul class="nav-links">
@@ -48,9 +48,9 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name" href="#">Service</a></li>
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Login Form</a></li>
-                <li><a href="#">Card Design</a></li>
+                <li><a href="/admin/pesanan/produk">Pesanan Produk</a></li>
+                <li><a href="/admin/pesanan/grooming">Pesanan Grooming</a></li>
+                <li><a href="/admin/pesanan/penitipan">Pesanan Penitipan</a></li>
             </ul>
         </li>
         <li class="hover:bg-pink-400 hover:text-white">
@@ -104,7 +104,7 @@
                 <li><a class="link_name" href="#">Setting</a></li>
             </ul>
         </li>
-        <li class="hover:bg-pink-400 hover:text-white">
+        <li class="hover:bg-pink-500 hover:text-white">
             <div class="profile-details">
                 <div class="profile-content">
                     <img src="{{ asset("assets/img/team-1.jpg") }}" alt="profileImg">

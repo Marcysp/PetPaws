@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('jenis_grooming');
             $table->integer('harga');
             $table->text('deskripsi_penanganan');
-            $table->enum('hewan',['anjing','kucing','both']);
+            $table->enum('hewan',['anjingBesar','anjingKecil','kucing','both']);
             $table->timestamps();
         });
     }

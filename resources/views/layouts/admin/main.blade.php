@@ -11,9 +11,10 @@
 
   <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-white text-slate-500 overflow-hidden scroll-smooth">
         @include('layouts.admin.sidenav')
-        <section class="home-section bg-slate-200 overflow-y-auto">
+        <section class="home-section bg-slate-100 overflow-y-auto">
+            @yield('split-bg')
             @include('layouts.admin.navbar')
-            <div>
+            <div class="z-10 relative min-h-full" id="tumpukan">
                 @yield('content')
             </div>
             @include('layouts.admin.footer')

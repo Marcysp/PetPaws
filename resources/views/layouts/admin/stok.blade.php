@@ -22,11 +22,10 @@
             <tr class="py-6 my-6 h-10 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200 overflow-hidden">
                 <td>{{++$i}}</td>
                 <td><center><div class="h-10 rounded-lg w-16 overflow-hidden grid place-items-center"><img class="rounded-lg object-center object-fill" src="{{ asset("assets/img/imgData/$p->img") }}" alt="{{$p->nama_produk}}"></div></center></td>
-                <td>{{$p->nama_produk}}</td>
+                <td>{{Str::words($p->nama_produk, 5)}}</td>
                 <td>{{$p->stok}}</td>
                 <td>
                     <button id="myBtn{{$p->id}}" data-target="#editModal{{$p->id}}" class=" py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-0">edit</button>
-                    {{-- <button id="myBtn">Open Modal</button> --}}
                 </td>
             </tr>
             @endif
@@ -50,7 +49,7 @@
             <tr class="py-6 my-6 h-10 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200 overflow-hidden">
                 <td>{{++$i}}</td>
                 <td><center><div class="h-10 rounded-lg w-16 overflow-hidden grid place-items-center"><img class="rounded-lg object-center object-fill" src="{{ asset("assets/img/imgData/$p->img") }}" alt="{{$p->nama_produk}}"></div></center></td>
-                <td>{{$p->nama_produk}}</td>
+                <td>{{Str::words($p->nama_produk, 5)}}</td>
                 <td>{{$p->stok}}</td>
                 <td>
                     <button id="myBtn{{$p->id}}" data-target="#editModal{{$p->id}}" class=" py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-0">edit</button>
