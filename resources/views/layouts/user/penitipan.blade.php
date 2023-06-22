@@ -26,7 +26,7 @@
                         <div class="my-4">
                             <form action="/service/penitipan/{{$p->id}}" method="post">
                                 @csrf
-                                <button type="submit" class="items-center justify-center rounded-md border border-transparent bg-pink-500 px-8 py-3 text-base font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">Tambah layanan</button>
+                                <button type="submit" class="items-center justify-center rounded-md border border-transparent bg-pink-500 px-8 py-3 text-base font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">Book Now</button>
                             </form>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                 </tbody>
             </table>
             <div class="bg-slate-200 px-6 py-4 font-semibold text-3xl text-teal-500 mt-8">
-                Anjing <span class="font-bold opacity-60"> < 10kg </span>
+                Anjing Kecil <span class="font-bold opacity-60"> < 10kg </span>
             </div>
             <table class="text-left text-gray-500">
                 <tbody >
@@ -54,7 +54,7 @@
                         <div class="my-4">
                             <form action="/service/penitipan/{{$p->id}}" method="post">
                                 @csrf
-                                <button type="submit" class="items-center justify-center rounded-md border border-transparent bg-pink-500 px-8 py-3 text-base font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">Tambah layanan</button>
+                                <button type="submit" class="items-center justify-center rounded-md border border-transparent bg-pink-500 px-8 py-3 text-base font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2">Book Now</button>
                             </form>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                 </tbody>
             </table>
             <div class="bg-slate-200 px-6 py-4 font-semibold text-3xl text-blue-500 mt-8">
-                Anjing <span class="font-bold opacity-60"> > 10kg </span>
+                Anjing Besar <span class="font-bold opacity-60"> > 10kg </span>
             </div>
             <table class="text-left text-gray-500">
                 <tbody >

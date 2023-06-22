@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GroomingRequest;
 use App\Models\Detail_grooming;
 use App\Models\Grooming;
 use App\Models\Paket_grooming;
@@ -42,6 +43,7 @@ class GroomingController extends Controller
             $grooming->id = $transactionId;
             $grooming->user_id = Auth::user()->id;
             $grooming->tanggal_grooming = $tanggal;
+            $grooming->tanggal_checkout = $tanggal;
             $grooming->status = 'list';
             $grooming->dilayani = 'proses';
             $grooming->total = 0;
@@ -113,35 +115,36 @@ class GroomingController extends Controller
 
         return redirect('/keranjang');
     }
-    public function checkout(Request $request)
+    public function checkout(GroomingRequest $request)
     {
-        $credentials = $request->validate([
-            'nama_hewan' => 'required|min:3',
-            'nama_pemilik' => 'required|min:3',
-            'alamat' => 'required|min:15',
-            'no_hp' => 'required|regex:/^\d{10,13}$/',
-            'hewan' => 'required'
-        ]);
+        $validated = $request->validated();
+        // dd($validated);
+        // $request->validate([
+        //     [
+        //     'no_hp.regex' => 'Nomor telepon harus terdiri dari 10 hingga 13 angka.'
+        // ]);
 
-        $grooming =  Grooming::where('user_id',Auth::user()->id)->where('status',"list")->first();
+        $grooming = Grooming::where('user_id', Auth::user()->id)->where('status', 'list')->first();
         $grooming_id = $grooming->id;
 
-        $detail_grooming = Detail_grooming::where('grooming_id',$grooming_id)->get();
-        foreach($detail_grooming as $dg){
-            $paket_grooming = Paket_grooming::where('id',$dg->paket_grooming_id)->first();
-            if ($paket_grooming->hewan !== $request->hewan || $paket_grooming->hewan !== 'both') {
-                Alert::error('Error', 'Paket yang anda Pilih tidak sesuai dengan jenis hewan anda');
-                return redirect('/list/grooming');
-            }
-        }
+        $detail_grooming = Detail_grooming::where('grooming_id', $grooming_id)->first();
+        $paket_grooming = Paket_grooming::where('id', $detail_grooming->paket_grooming_id)->first();
 
-        $grooming->nama_hewan = $request->nama_hewan;
-        $grooming->nama_pemilik = $request->nama_pemilik;
-        $grooming->alamat = $request->alamat;
-        $grooming->no_hp = $request->no_hp;
-        $grooming->hewan = $request->hewan;
+        // foreach($detail_grooming as $dg){
+        //         // dd($paket_grooming);
+        //     if ($paket_grooming->hewan !== $request->hewan && $paket_grooming->hewan !== 'both') {
+        //         return Alert::error('Error', 'Paket yang anda Pilih tidak sesuai dengan jenis hewan anda');
+        //     }
+        // }
 
-        $grooming->tanggal_grooming = now();
+        $grooming->nama_hewan = $validated['nama_hewan'];
+        $grooming->nama_pemilik = $validated['nama_pemilik'];
+        $grooming->alamat = $validated['alamat'];
+        $grooming->no_hp = $validated['no_hp'];
+        $grooming->hewan = $validated['hewan'];
+        $grooming->tanggal_grooming = $validated['tanggal_grooming'];
+
+        $grooming->tanggal_checkout = now();
 
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
@@ -162,6 +165,7 @@ class GroomingController extends Controller
                 'email' => Auth::user()->email,
                 'phone' => $request->no_hp,
             ),
+            
         );
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 

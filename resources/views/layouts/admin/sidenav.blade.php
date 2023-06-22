@@ -42,12 +42,12 @@
             <div class="iocn-link">
                 <a href="#">
                     <i class='bx bx-line-chart'></i>
-                    <span class="link_name">Service</span>
+                    <span class="link_name">Pesanan</span>
                 </a>
                 <i class='bx bxs-chevron-down arrow'></i>
             </div>
             <ul class="sub-menu">
-                <li><a class="link_name" href="#">Service</a></li>
+                <li><a class="link_name" href="#">Pesanan</a></li>
                 <li><a href="/admin/pesanan/produk">Pesanan Produk</a></li>
                 <li><a href="/admin/pesanan/grooming">Pesanan Grooming</a></li>
                 <li><a href="/admin/pesanan/penitipan">Pesanan Penitipan</a></li>
@@ -62,56 +62,19 @@
                 <li><a class="link_name" href="#">Chart</a></li>
             </ul>
         </li>
-        <li class="hover:bg-pink-400 hover:text-white">
-            <div class="iocn-link">
-                <a href="#">
-                    <i class='bx bx-plug'></i>
-                    <span class="link_name">Plugins</span>
-                </a>
-                <i class='bx bxs-chevron-down arrow'></i>
-            </div>
-            <ul class="sub-menu">
-                <li><a class="link_name" href="#">Plugins</a></li>
-                <li><a href="#">UI Face</a></li>
-                <li><a href="#">Pigments</a></li>
-                <li><a href="#">Box Icons</a></li>
-            </ul>
-        </li>
-        <li class="hover:bg-pink-400 hover:text-white">
-            <a href="#">
-                <i class='bx bx-compass'></i>
-                <span class="link_name">Explore</span>
-            </a>
-            <ul class="sub-menu blank">
-                <li><a class="link_name" href="#">Explore</a></li>
-            </ul>
-        </li>
-        <li class="hover:bg-pink-400 hover:text-white">
-            <a href="#">
-                <i class='bx bx-history'></i>
-                <span class="link_name">History</span>
-            </a>
-            <ul class="sub-menu blank">
-                <li><a class="link_name" href="#">History</a></li>
-            </ul>
-        </li>
-        <li class="hover:bg-pink-400 hover:text-white">
-            <a href="#">
-                <i class='bx bx-cog'></i>
-                <span class="link_name">Setting</span>
-            </a>
-            <ul class="sub-menu blank">
-                <li><a class="link_name" href="#">Setting</a></li>
-            </ul>
-        </li>
         <li class="hover:bg-pink-500 hover:text-white">
             <div class="profile-details">
                 <div class="profile-content">
-                    <img src="{{ asset("assets/img/team-1.jpg") }}" alt="profileImg">
+                    <form action="/logout" method="post">
+                        @csrf
+                        <button type="submit" class="inline-flex justify-center items-center border border-transparent font-semibold bg-pink-400 text-white hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-500">
+                            <img src="{{ asset("assets/img/team-1.jpg") }}" alt="profileImg">
+                        </button>
+                    </form>
                 </div>
                 <div class="name-job">
-                    <div class="profile_name text-white">Prem Shahi</div>
-                    <div class="job">Web Desginer</div>
+                    <div class="profile_name text-white">{{Auth::user()->name}}</div>
+                    <div class="job">Website Admin</div>
                 </div>
                 <form action="/logout" method="post">
                     @csrf

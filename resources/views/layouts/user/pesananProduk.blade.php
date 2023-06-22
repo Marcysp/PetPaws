@@ -59,21 +59,39 @@
                 <tbody >
                     @foreach($detail_pesanan as $dp)
                     @if($dp->pesanan_id == $p->id)
-                    <tr>
-                        <td class="pl-1 pr-4 py-4">
-                            <img src="{{asset("assets/img/imgData/".$dp->produk->img)}}" alt="img" class="w-12">
-                        </td>
-                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                            <div>{{$dp->produk->nama_produk}}</div>
-                            <div>x{{$dp->qty}}</div>
-                        </td>
-                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                            @currency($dp->produk->harga)
-                        </td>
-                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                            @currency($dp->subtotal)
-                        </td>
-                    </tr>
+                        @if ($dp->produk->trashed())
+                            <tr>
+                                <td class="pl-1 pr-4 py-4">
+                                    <img src="{{asset("assets/img/imgData/".$trashProduk->where('id', $dp->produk_id)->first()->img)}}" alt="img" class="w-12">
+                                </td>
+                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    <div>{{ $trashProduk->where('id', $dp->produk_id)->first()->nama_produk }}</div>
+                                    <div>x{{$dp->qty}}</div>
+                                </td>
+                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    @currency($trashProduk->where('id', $dp->produk_id)->first()->harga)
+                                </td>
+                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    @currency($dp->subtotal)
+                                </td>
+                            </tr>
+                        @else
+                        <tr>
+                            <td class="pl-1 pr-4 py-4">
+                                <img src="{{asset("assets/img/imgData/".$dp->produk->img)}}" alt="img" class="w-12">
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                <div>{{$dp->produk->nama_produk}}</div>
+                                <div>x{{$dp->qty}}</div>
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                @currency($dp->produk->harga)
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                @currency($dp->subtotal)
+                            </td>
+                        </tr>
+                        @endif
                     @endif
                 @endforeach
                 </tbody>
@@ -87,7 +105,7 @@
                     <button type="button" id="pay-button{{$p->id}}" class="text-white bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 mr-2">Bayar Sekarang</button>
                 </div>
             </div>
-            @else
+            {{-- @else
             <div class="flex justify-end border-t-0 ">
                 <div class="px-6 start-0 my-auto font-semibold left-0 w-2/5">{{ \Carbon\Carbon::parse($p->tanggal_pesanan)->format('d-m-Y') }}</div>
                 <div class="px-6 my-auto font-bold">Total Pesanan</div>
@@ -95,7 +113,7 @@
                 <div class="pl-6 pr-2">
                     <button type="button" class="text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 mr-2">Review</button>
                 </div>
-            </div>
+            </div> --}}
 
             @endif
         </div>

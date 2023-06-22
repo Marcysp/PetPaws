@@ -27,21 +27,6 @@ use Illuminate\Routing\RouteGroup;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/cart1', function () {
-    return view('new.cart1');
-});
-
-Route::get('/home1', function () {
-    return view('new.home1');
-});
-
-Route::get('/pesanan', function () {
-    return view('new.pesanan');
-});
-Route::get('/pesananmasuk', function () {
-    return view('new.pesananmasuk');
-});
 Route::get('/', function () {
     return view('layouts.user.landing');
 });
@@ -111,12 +96,12 @@ Route::group(['middleware' => ['auth','is_admin:0']],function(){
     Route::post('check-out/grooming',[GroomingController::class, 'checkout']);
 
     Route::get('/penitipan', [PenitipanController::class, 'index']);
-    Route::get('/service/penitipan', [PenitipanController::class, 'pesan']);
-    // Route::post('/service/penitipan/{id}', [PenitipanController::class, 'pesan']);
+    Route::post('/service/penitipan/{id}', [PenitipanController::class, 'pesan']);
+    Route::post('/check-out/penitipan',[PenitipanController::class, 'checkout']);
 
     Route::get('/pesanan/produk', [listOrderController::class, 'userProdukList'])->name('pesanan-produk');
     Route::get('/pesanan/grooming', [listOrderController::class, 'userGroomingList'])->name('pesanan-grooming');
-    Route::get('/pesanan/penitioan', [listOrderController::class, 'userPenitipanList'])->name('pesanan-penitioan');
+    Route::get('/pesanan/penitipan', [listOrderController::class, 'userPenitipanList'])->name('pesanan-penitipan');
 });
 // guest
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');

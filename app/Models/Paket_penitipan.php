@@ -12,4 +12,8 @@ class Paket_penitipan extends Model
     // protected $fillable = ['nama']
     // untuk mengatasi error fillable bisa digantikan dengan guarded
     protected $guarded = [];
+    public function penitipan()
+    {
+        return $this->hasMany(Penitipan::class);
+    }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('paket_penitipan_id')->references('id')->on('paket_penitipan');
             $table->date('tanggal_masuk');
             $table->date('tanggal_keluar');
+            $table->date('tanggal_order');
             $table->string('nama_hewan');
             $table->string('nama_pemilik');
             $table->string('riwayat_penyakit');
@@ -26,7 +27,6 @@ return new class extends Migration
             $table->string('no_hp');
             $table->enum('hewan',['anjing besar','kucing','anjing kecil'])  ;
             $table->integer('total');
-            $table->enum('status',['list','checkout'])->default('list');
             $table->enum('dilayani',['terlayani','proses'])->default('proses');
             $table->enum('paid',['paid','unpaid'])->default('unpaid');
             $table->text('token')->nullable();

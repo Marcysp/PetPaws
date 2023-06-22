@@ -13,7 +13,8 @@
         <div class="grid justify-items-center m-10"><img class="w-3/5 md:w-4/5 justify-items-center" src="{{ asset("assets/img/logo-web/cat(1) 1.png") }}" alt="Cat(1)"></div>
     </div>
     {{-- profile --}}
-    <div class="min-h-screen bg-fuchsia-200 pt-10 pb-6">
+    <div id="profile"></div>
+    <div class="min-h-screen bg-fuchsia-200 pt-10 pb-6" >
         <div class="w-72 items-center mx-auto text-center border-b-2 pb-2 border-slate-900">
             <span class=" text-5xl font-bold uppercase text-slate-900">Profile</span>
         </div>

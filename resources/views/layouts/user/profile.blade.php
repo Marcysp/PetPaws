@@ -14,7 +14,7 @@
                 <ul>
                     <a href="/pesanan/produk" class="hover:text-slate-800 {{ request()->is('pesanan/produk') ? 'current' : '' }}"><li class="px-3 py-2 hover:bg-slate-300">Produk</li></a>
                     <a href="/pesanan/grooming" class="hover:text-slate-800"><li class="px-3 py-2 hover:bg-slate-300 {{ request()->is('pesanan/grooming') ? 'current' : '' }}">Grooming</li></a>
-                    <a href="#" class="hover:text-slate-800"><li class="px-3 py-2 hover:bg-slate-300 {{ request()->is('pesanan/penitipan') ? 'current' : '' }}">Penitipan</li></a>
+                    <a href="/pesanan/penitipan" class="hover:text-slate-800"><li class="px-3 py-2 hover:bg-slate-300 {{ request()->is('pesanan/penitipan') ? 'current' : '' }}">Penitipan</li></a>
                 </ul>
             </div>
         </div>

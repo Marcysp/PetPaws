@@ -6,7 +6,7 @@
 
 @section('search-nav')
 <div class="flex items-center md:ml-auto md:pr-11 mt-4">
-    <form action="/pesanan/produk" method="GET">
+    <form action="/admin/pesanan/produk" method="GET">
         <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
             <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
                 <i class='bx bx-search-alt z-10'></i>
@@ -54,13 +54,15 @@
                         <span class="close-manual" id="close{{$p->id}}">&times;</span>
                     </div>
                     <h5 class="modal-title text-sm text-slate-400">{{ \Carbon\Carbon::parse($p->tanggal_pesanan)->format('d-m-Y') }}</h5>
-                    <div class="justify-between">
+                    <div>
                         @foreach($detail_pesanan as $dp)
                             @if($dp->pesanan_id == $p->id)
-                            <div class="mx-6 my-4 flex justify-between">
-                                <img src="{{asset("assets/img/imgData/".$dp->produk->img)}}" alt="img" class="w-12">
-                                <div>{{$dp->produk->nama_produk}}</div>
-                                <div>x{{$dp->qty}}</div>
+                            <div class="mx-6 my-4 flex">
+                                <div class="mx-4 mr-8">
+                                    <img src="{{asset("assets/img/imgData/".$dp->produk->img)}}" alt="img" class="w-12">
+                                </div>
+                                <div class="w-96 mx-5">{{$dp->produk->nama_produk}}</div>
+                                <div class="mx-5">x{{$dp->qty}}</div>
                             </div>
                             @endif
                         @endforeach

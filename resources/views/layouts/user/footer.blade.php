@@ -17,7 +17,11 @@
                           <a href="/landing" class="hover:underline">Home</a>
                       </li>
                       <li class="my-2">
-                          <a href="#" class="hover:underline">Profile</a>
+                        @if (Request::is('landing'))
+                            <a href="#profile" class="hover:underline">Profile</a>
+                            @else
+                            <a href="/landing#profile" class="hover:underline">Profile</a>
+                            @endif
                       </li>
                       <li class="my-2">
                           <a href="#" class="hover:underline">Service</a>

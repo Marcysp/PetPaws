@@ -53,6 +53,16 @@
                 <tbody >
                     @foreach($detail_grooming as $dg)
                     @if($dg->grooming_id == $g->id)
+                    @if ($dg->paket_grooming->trashed())
+                    <tr>
+                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                            <div>{{ $trashPaket_grooimg->where('id', $dg->paket_grooming_id)->first()->jenis_grooming }}</div>
+                        </td>
+                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                            @currency($trashPaket_grooimg->where('id', $dg->paket_grooming_id)->first()->harga)
+                        </td>
+                    </tr>
+                    @else
                     <tr>
                         <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                             <div>{{$dg->paket_grooming->jenis_grooming}}</div>
@@ -62,28 +72,19 @@
                         </td>
                     </tr>
                     @endif
+                    @endif
                 @endforeach
                 </tbody>
             </table>
             @if ($g->paid == 'unpaid')
             <div class="flex justify-end border-t-0">
-                <div class="px-6 start-0 my-auto font-semibold left-0 w-2/5">{{ \Carbon\Carbon::parse($g->tanggal_grooming)->format('d-m-Y') }}</div>
+                <div class="px-6 start-0 my-auto font-semibold left-0 w-2/5">{{ \Carbon\Carbon::parse($g->tanggal_checkout)->format('d-m-Y') }}</div>
                 <div class="px-6 my-auto font-bold">Total Pesanan</div>
                 <div class="px-6 my-auto font-bold">@currency($g->total)</div>
                 <div class="pl-6 pr-2">
                     <button type="button" id="pay-button{{$g->id}}" class="text-white bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 mr-2">Bayar Sekarang</button>
                 </div>
             </div>
-            @else
-            <div class="flex justify-end border-t-0 ">
-                <div class="px-6 start-0 my-auto font-semibold left-0 w-2/5">{{ \Carbon\Carbon::parse($g->tanggal_grooming)->format('d-m-Y') }}</div>
-                <div class="px-6 my-auto font-bold">Total Pesanan</div>
-                <div class="px-6 my-auto font-bold">@currency($g->total)</div>
-                <div class="pl-6 pr-2">
-                    <button type="button" class="text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 mr-2">Review</button>
-                </div>
-            </div>
-
             @endif
         </div>
         @endforeach

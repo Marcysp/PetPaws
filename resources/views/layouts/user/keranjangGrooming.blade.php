@@ -53,12 +53,12 @@
                     </table>
                 </div>
             </div>
-            <form id="checkout-form" action="{{ $grooming->total > 0 ? '/check-out/grooming' : '#' }}" method="{{ $grooming->total > 0 ? 'post' : 'get' }}">
+            <form id="checkout-form" onsubmit="return validateDate()" action="{{ $grooming->total > 0 ? '/check-out/grooming' : '#' }}" method="{{ $grooming->total > 0 ? 'post' : 'get' }}">
                 @csrf
                 <div class="mt-10 mr-20 w-4/6">
                     <hr class="pb-3">
                     <span class=" text-sm font-bold">Order Summary</span>
-                        <div class="grid gap-6 mt-3 mb-6 md:grid-cols-2">
+                        <div class="grid gap-3 mt-3 mb-6 md:grid-cols-2">
                             <div>
                                 <label for="nama_hewan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Peliharaan</label>
                                 <input type="text" id="nama_hewan" name="nama_hewan" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" placeholder="Nama hewan" required value="{{old('nama_hewan')}}">
@@ -73,35 +73,53 @@
                                 <div class="text-sm text-red-500">{{$message}}</div>
                                 @enderror
                             </div>
-                            <div class="flex col-span-3">
-                                <div class="w-1/2 pr-5">
-                                    <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                                    <textarea name="alamat" id="alamat" cols="30" rows="4" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3">{{old('alamat')}}</textarea>
-                                    @error('alamat')
-                                    <div class="text-sm text-red-500">{{$message}}</div>
-                                    @enderror
-                                </div>
-                                <div class="w-1/2 pr-5">
-                                    <div class="@error('no_hp') mb-0 @else mb-5 @enderror">
-                                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.Telp</label>
-                                        <input type="text" id="phone" name="no_hp" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3"  placeholder="No Telp" required value="{{old('no_hp')}}">
-                                        @error('no_hp')
-                                        <div class="text-sm text-red-500">{{$message}}</div>
-                                        @enderror
-                                    </div>
-                                    <div>
-                                        <label for="jenis_hewan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Hewan</label>
-                                        <select required class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" aria-label="Default select example" name="hewan">
-                                            <option selected disabled>Jenis Hewan</option>
-                                            <option value="anjingBesar">Anjing Besar</option>
-                                            <option value="anjingKecil">Anjing Kecil</option>
-                                            <option value="kucing">Kucing</option>
-                                        </select>
-                                        @error('hewan')
-                                        <div class="text-sm text-red-500">{{$message}}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                            <div>
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.Telp</label>
+                                <input type="text" id="phone" name="no_hp" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3"  placeholder="No Telp" required value="{{old('no_hp')}}">
+                                @error('no_hp')
+                                <div class="text-sm text-red-500">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Booking Grooming</label>
+                                <input type="date" id="tanggal" name="tanggal_grooming" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3"  placeholder="No Telp" required value="{{old('tanggal_grooming')}}">
+                                @error('tanggal_grooming')
+                                <div class="text-sm text-red-500">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                <textarea name="alamat" id="alamat" cols="30" rows="4" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3">{{old('alamat')}}</textarea>
+                                @error('alamat')
+                                <div class="text-sm text-red-500">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="jenis_hewan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Hewan</label>
+                                <select required class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" aria-label="Default select example" name="hewan" id="hewan">
+                                    <option selected disabled>Jenis Hewan</option>
+                                    <option value="anjingBesar">Anjing Besar</option>
+                                    <option value="anjingKecil">Anjing Kecil</option>
+                                    <option value="kucing">Kucing</option>
+                                </select>
+                                @error('hewan')
+                                <div class="text-sm text-red-500">{{$message}}</div>
+                                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                            @if ($loop->first && $errors->has('hewan'))
+                                                @include('sweetalert::alert')
+                                                <script>
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: 'Invalid Input',
+                                                        text: '{{ $errors->first('hewan') }}',
+                                                    });
+                                                </script>
+                                                @break
+                                            @endif
+                                    @endforeach
+                                @endif
+                                @enderror
                             </div>
                         </div>
                 </div>
@@ -140,7 +158,38 @@
         </div>
     @endif
 @endsection
-
 @section('script-manual')
-@include('sweetalert::alert')
+<script>
+    function validateDate() {
+        // Mendapatkan tanggal sekarang
+        var currentDate = new Date();
+
+        // Mendapatkan nilai input tanggal
+        var inputDate = new Date(document.getElementById('tanggal').value);
+
+        // Membandingkan tanggal input dengan tanggal sekarang
+        if (inputDate < currentDate) {
+            alert('Tanggal tidak boleh kurang dari tanggal sekarang!');
+            return false;
+        }
+
+        //mendapatkan hewan
+        var selectedHewan = document.getElementById('hewan').value;
+        // Mendapatkan detail grooming
+        var detailGrooming = {!! json_encode($detail_grooming) !!};
+
+        // Membandingkan jenis hewan yang dipilih dengan jenis hewan dari paket grooming
+        for (var i = 0; i < detailGrooming.length; i++) {
+            var paketHewan = detailGrooming[i].paket_grooming.hewan;
+            if (selectedHewan !== paketHewan && paketHewan !== 'both') {
+                alert('Paket yang Anda pilih tidak sesuai dengan jenis hewan Anda!');
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+</script>
+
 @endsection

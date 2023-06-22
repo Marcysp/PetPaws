@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->date('tanggal_grooming');
+            $table->date('tanggal_checkout');
             $table->string('nama_hewan')->nullable();
             $table->string('nama_pemilik')->nullable();
             $table->text('alamat')->nullable();

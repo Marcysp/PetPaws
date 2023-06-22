@@ -61,7 +61,7 @@
                 </tbody>
             </table>
             <div class="bg-slate-200 px-6 py-4 font-semibold text-3xl text-cyan-500 mt-10">
-                Anjing <span class="font-bold opacity-60"> < 10kg </span>
+                Anjing Kecil <span class="font-bold opacity-60"> < 10kg </span>
             </div>
             <table class="text-left text-gray-500">
                 <tbody >
@@ -89,7 +89,7 @@
                 </tbody>
             </table>
             <div class="bg-slate-200 px-6 py-4 font-semibold text-3xl text-cyan-500 mt-10">
-                Anjing <span class="font-bold opacity-60"> > 10kg </span>
+                Anjing Besar <span class="font-bold opacity-60"> > 10kg </span>
             </div>
             <table class="text-left text-gray-500">
                 <tbody >

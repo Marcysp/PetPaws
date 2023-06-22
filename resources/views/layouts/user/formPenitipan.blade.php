@@ -1,193 +1,153 @@
 @extends('layouts.user.main')
 @section('title') Penitipan @endsection
+@section('link-manual')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@endsection
 @section('content')
-<div class="mx-16 mt-16">
-    <form>
-        @csrf
-        <div class="space-y-12">
-          <div class="border-b border-gray-900/10 pb-12">
-            <h2 class="text-base font-semibold leading-7 text-gray-900">Order Form</h2>
-            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div class="sm:col-span-4">
-                <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
-                <div class="mt-2">
-                  <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                    <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span>
-                    <input type="text" name="username" id="username" autocomplete="username" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="janesmith">
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-span-full">
-                <label for="about" class="block text-sm font-medium leading-6 text-gray-900">About</label>
-                <div class="mt-2">
-                  <textarea id="about" name="about" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-                </div>
-                <p class="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
-              </div>
-
-              <div class="col-span-full">
-                <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">Photo</label>
-                <div class="mt-2 flex items-center gap-x-3">
-                  <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
-                  </svg>
-                  <button type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button>
-                </div>
-              </div>
-
-              <div class="col-span-full">
-                <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Cover photo</label>
-                <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                  <div class="text-center">
-                    <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-                    </svg>
-                    <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                      <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                        <span>Upload a file</span>
-                        <input id="file-upload" name="file-upload" type="file" class="sr-only">
-                      </label>
-                      <p class="pl-1">or drag and drop</p>
+<div class="mx-16 my-24">
+    <div>
+        <form action="/check-out/penitipan/" method="post" id="checkout-form" onsubmit="return validateForm()">
+            @csrf
+            <div class="my-6 shadow-2xl border-y-4 py-10 px-10 border-fuchsia-700">
+                <table class="mx-6 px-10 mb-4 text-lg font-semibold text-slate-700">
+                    <tr>
+                        <td>Jenis Penitipan</td>
+                        <td> : </td>
+                        <td>{{$paket->jenis_penitipan}}</td>
+                    </tr>
+                    <tr>
+                        <td>Harga</td>
+                        <td>:</td>
+                        <td>@format($paket->harga)/malam</td>
+                    </tr>
+                </table>
+                <div class="flex">
+                    <div class="w-[600px] mx-6">
+                        <div class="my-4">
+                            <label for=""> Nama Hewan</label><br>
+                            <input type="text" name="nama_hewan" class="cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3 @error('name') invalid:ring-red-600 @enderror"
+                    required>
+                        </div>
+                        <div class="my-4">
+                            <label for=""> Tanggal Check In</label><br>
+                            <input type="date" name="tanggal_masuk" id="tanggal_masuk" onchange="calculateTotal()" class="cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3 @error('name') invalid:ring-red-600 @enderror"
+                    required>
+                        </div>
+                        <div class="my-4">
+                            <label for=""> No hp</label><br>
+                            <input type="text" name="no_hp" class="cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3 @error('no_hp') invalid:ring-red-600 @enderror"
+                    required>
+                        </div>
+                        <div class="my-4">
+                            <label for="">Alamat</label><br>
+                            <textarea name="alamat" id="alamat" cols="40" rows="5" class="cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3"></textarea>
+                        </div>
                     </div>
-                    <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                  </div>
+                    <div class="w-[600px] mx-6">
+                        <div class="my-4">
+                            <label for=""> Nama Pemilik</label><br>
+                            <input type="text" name="nama_pemilik" class="cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3 @error('name') invalid:ring-red-600 @enderror"
+                    required>
+                        </div>
+                        <div class="my-4">
+                            <label for=""> Tanggal Check Out</label><br>
+                            <input type="date" name="tanggal_keluar" id="tanggal_keluar" onchange="calculateTotal()" class="cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3 @error('name') invalid:ring-red-600 @enderror" br
+                            required>
+                        </div>
+                        <div class="my-4">
+                            <label for=""> Jenis Hewan </label><br>
+                            <select required name="hewan" class="form-select cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" aria-label="Default select example" name="hewan" id="hewan" data-paket-hewan="{{$paket->hewan}}">
+                                <option selected disabled>Jenis Hewan</option>
+                                <option value="anjing besar">Anjing Besar</option>
+                                <option value="anjing kecil">Anjing Kecil</option>
+                                <option value="kucing">Kucing</option>
+                            </select>
+                        </div>
+                        <div class="my-4">
+                            <label for="">Riwayat penyakit Hewan</label><br>
+                            <textarea name="riwayat_penyakit" id="riwayat_penyakit" cols="40" rows="5" class="cursor-pointer block w-full rounded-md border-0 py-1.5 text-slate-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-pink-400 sm:text-sm sm:leading-6 mr-2 outline-none px-3" required placeholder='isikan "-" jika tidak memiliki riwayat penyakit'></textarea>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <div class="mt-10 mr-20 mb-40 w-[55%]">
+                    <span class=" text-sm font-bold">Payment Informations</span>
+                    <div class="grid text-sm gap-6 mt-3 mb-6 md:grid-cols-3">
+                        <div class="flex-col w-48">
+                            <div class="text-center text-green-500 text-2xl">
+                                <div id="total_biaya"></div>
+                            </div>
+                            <div class="text-center">
+                                Total Pembayaran
+                            </div>
+                        </div>
+                        <button type="submit" class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm w-fit px-5 py-2.5 mr-2 mb-2">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="hidden">
+                    <input type="text" name="paket_penitipan_id" value="{{$paket->id}}">
+                </div>
             </div>
-          </div>
+        </form>
+    </div>
 
-          <div class="border-b border-gray-900/10 pb-12">
-            <h2 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
-            <p class="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
-
-            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div class="sm:col-span-3">
-                <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
-                <div class="mt-2">
-                  <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-
-              <div class="sm:col-span-3">
-                <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
-                <div class="mt-2">
-                  <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-
-              <div class="sm:col-span-4">
-                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                <div class="mt-2">
-                  <input id="email" name="email" type="email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-
-              <div class="sm:col-span-3">
-                <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
-                <div class="mt-2">
-                  <select id="country" name="country" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-span-full">
-                <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Street address</label>
-                <div class="mt-2">
-                  <input type="text" name="street-address" id="street-address" autocomplete="street-address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-
-              <div class="sm:col-span-2 sm:col-start-1">
-                <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
-                <div class="mt-2">
-                  <input type="text" name="city" id="city" autocomplete="address-level2" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-
-              <div class="sm:col-span-2">
-                <label for="region" class="block text-sm font-medium leading-6 text-gray-900">State / Province</label>
-                <div class="mt-2">
-                  <input type="text" name="region" id="region" autocomplete="address-level1" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-
-              <div class="sm:col-span-2">
-                <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">ZIP / Postal code</label>
-                <div class="mt-2">
-                  <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="border-b border-gray-900/10 pb-12">
-            <h2 class="text-base font-semibold leading-7 text-gray-900">Notifications</h2>
-            <p class="mt-1 text-sm leading-6 text-gray-600">We'll always let you know about important changes, but you pick what else you want to hear about.</p>
-
-            <div class="mt-10 space-y-10">
-              <fieldset>
-                <legend class="text-sm font-semibold leading-6 text-gray-900">By Email</legend>
-                <div class="mt-6 space-y-6">
-                  <div class="relative flex gap-x-3">
-                    <div class="flex h-6 items-center">
-                      <input id="comments" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    </div>
-                    <div class="text-sm leading-6">
-                      <label for="comments" class="font-medium text-gray-900">Comments</label>
-                      <p class="text-gray-500">Get notified when someones posts a comment on a posting.</p>
-                    </div>
-                  </div>
-                  <div class="relative flex gap-x-3">
-                    <div class="flex h-6 items-center">
-                      <input id="candidates" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    </div>
-                    <div class="text-sm leading-6">
-                      <label for="candidates" class="font-medium text-gray-900">Candidates</label>
-                      <p class="text-gray-500">Get notified when a candidate applies for a job.</p>
-                    </div>
-                  </div>
-                  <div class="relative flex gap-x-3">
-                    <div class="flex h-6 items-center">
-                      <input id="offers" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    </div>
-                    <div class="text-sm leading-6">
-                      <label for="offers" class="font-medium text-gray-900">Offers</label>
-                      <p class="text-gray-500">Get notified when a candidate accepts or rejects an offer.</p>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend class="text-sm font-semibold leading-6 text-gray-900">Push Notifications</legend>
-                <p class="mt-1 text-sm leading-6 text-gray-600">These are delivered via SMS to your mobile phone.</p>
-                <div class="mt-6 space-y-6">
-                  <div class="flex items-center gap-x-3">
-                    <input id="push-everything" name="push-notifications" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    <label for="push-everything" class="block text-sm font-medium leading-6 text-gray-900">Everything</label>
-                  </div>
-                  <div class="flex items-center gap-x-3">
-                    <input id="push-email" name="push-notifications" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    <label for="push-email" class="block text-sm font-medium leading-6 text-gray-900">Same as email</label>
-                  </div>
-                  <div class="flex items-center gap-x-3">
-                    <input id="push-nothing" name="push-notifications" type="radio" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    <label for="push-nothing" class="block text-sm font-medium leading-6 text-gray-900">No push notifications</label>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-          <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-          <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
-        </div>
-    </form>
 </div>
+@endsection
 
+@section('script-manual')
+<script>
+    function validateForm() {
+        var tanggalMasuk = new Date(document.getElementById('tanggal_masuk').value);
+        var tanggalKeluar = new Date(document.getElementById('tanggal_keluar').value);
+        // Get today's date
+        var today = new Date();
+
+        if (tanggalMasuk < today) {
+            alert('Tanggal CheckIn tidak boleh lebih awal dari tanggal sekarang.');
+            return false;
+        }
+
+        if (tanggalKeluar <= tanggalMasuk) {
+            alert('Tanggal CheckOut harus lebih dari tanggal masuk.');
+            return false;
+        }
+        // Mendapatkan jenis hewan yang dipilih
+        var selectedHewan = document.getElementById('hewan').value;
+
+        // Mendapatkan jenis hewan dari paket penitipan yang dipilih
+        var paketPenitipan = {!! json_encode($paket) !!};
+        var penitipanHewan = paketPenitipan.hewan;
+
+        // Membandingkan jenis hewan yang dipilih dengan jenis hewan dari paket grooming
+        if (selectedHewan !== penitipanHewan) {
+            alert('Paket yang Anda pilih tidak sesuai dengan jenis hewan Anda!');
+            return false;
+        }
+
+        return true;
+    }
+
+    function calculateTotal() {
+    // Mendapatkan tanggal masuk
+    var tanggalMasuk = new Date(document.getElementById('tanggal_masuk').value);
+
+    // Mendapatkan tanggal keluar
+    var tanggalKeluar = new Date(document.getElementById('tanggal_keluar').value);
+
+    // Mendapatkan harga paket
+    var hargaPaket = {!! json_encode($paket->harga) !!};
+
+    // Menghitung selisih hari antara tanggal keluar dan tanggal masuk
+    var selisihHari = (tanggalKeluar - tanggalMasuk) / (1000 * 60 * 60 * 24);
+
+    // Menghitung total biaya
+    var totalBiaya = selisihHari * hargaPaket;
+
+    // Mengubah totalBiaya menjadi format mata uang rupiah
+    var formattedTotalBiaya = totalBiaya.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+
+    // Memperbarui tampilan total biaya di halaman
+    document.getElementById('total_biaya').innerHTML = formattedTotalBiaya;
+  }
+</script>
 @endsection

@@ -15,6 +15,6 @@ class Detail_grooming extends Model
 
     public function paket_grooming()
     {
-        return $this->belongsTo(Paket_grooming::class);
+        return $this->belongsTo(Paket_grooming::class)->withTrashed();
     }
 }

@@ -36,6 +36,10 @@ class ProdukController extends Controller
         if (auth()->user()->is_admin == 0) {
             return view('layouts.user.produk',compact(['produk','brand','kategori','hewan']));
         }else {
+            $title = 'Delete User!';
+            $text = "Are you sure you want to delete?";
+            confirmDelete($title, $text);
+
             return view('layouts.admin.produk',compact(['produk']));
         }
     }
@@ -94,8 +98,12 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         $produk = Produk::find($id);
-        $produk->delete();
-        return redirect('/produk');
+
+        if ($produk) {
+            $produk->delete();
+            // Tambahkan logika atau pesan sukses lainnya jika diperlukan
+        }
+        return redirect('/produk')->with('toast_success', 'Produk berhasil dipindah ke sampah');;
 
     }
 }
