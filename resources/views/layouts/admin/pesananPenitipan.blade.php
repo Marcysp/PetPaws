@@ -49,21 +49,79 @@
             <div id="editModal{{$p->id}}" class="modal-manual fade myModal" tabindex="-1" role="dialog">
                 <div class="modal-content-manual" role="document">
                     <div class="modal-content">
-                        <div class="modal-header flex justify-between">
-                            <h5 class="modal-title text-lg text-slate-800">{{$p->id}}</h5>
+                        <div class="modal-header flex justify-between px-14">
+                            <h5 class="modal-title text-lg text-slate-800">ID {{$p->id}}</h5>
                             <span class="close-manual" id="close{{$p->id}}">&times;</span>
                         </div>
-                        <h5 class="modal-title text-sm text-slate-400">{{ \Carbon\Carbon::parse($p->tanggal_penitipan)->format('d-m-Y') }}</h5>
+                        <h5 class="modal-title text-sm text-slate-400 px-14">{{ \Carbon\Carbon::parse($p->tanggal_penitipan)->format('d-m-Y') }}</h5>
                         <div>
-                            @foreach($detail_penitipan as $dg)
-                                @if($dg->penitipan_id == $p->id)
-                                <div class="mx-6 my-4 flex">
-                                    <div class="w-96 mx-5">{{$dg->paket_penitipan->jenis_penitipan}}</div>
+                            <div class="my-7 text-xl font-semibold px-14">
+                                Detail Order
+                            </div>
+                            <div class="my-6 px-10">
+                                <div class="flex mx-5 text-slate-700">
+                                    <div class="mr-2">
+                                        <div>Jenis Penitipan</div>
+                                        <div>Harga</div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            : {{$p->paket_penitipan->jenis_penitipan}}
+                                        </div>
+                                        <div>: @format($p->paket_penitipan->harga)/malam</div>
+                                    </div>
                                 </div>
-                                @endif
-                            @endforeach
-                            <div class="mx-10 w-3/5">
-                                data pembeli
+                                <div class="flex">
+                                    <div class="w-[600px] mx-6">
+                                        <div class="my-4">
+                                            <p> Nama Hewan :</p>
+                                            <h3>{{$p->nama_hewan}}</h3>
+                                        </div>
+                                        <div class="my-4">
+                                            <p> Tanggal Check In :</p>
+                                            <h3>{{$p->tanggal_masuk}}</h3>
+                                        </div>
+                                        <div class="my-4">
+                                            <p> No hp :</p>
+                                            <h3>{{$p->no_hp}}</h3>
+                                        </div>
+                                        <div class="my-4">
+                                            <p>Alamat :</p>
+                                            <h3>{{$p->alamat}}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="w-[600px] mx-6">
+                                        <div class="my-4">
+                                            <p> Nama Pemilik : </p>
+                                            <h3>{{$p->nama_pemilik}}</h3>
+                                        </div>
+                                        <div class="my-4">
+                                            <p> Tanggal Check Out :</p>
+                                            <h3>{{$p->tanggal_keluar}}</h3>
+                                        </div>
+                                        <div class="my-4">
+                                            <p> Jenis Hewan : </p>
+                                            <h3>{{$p->hewan}}</h3>
+                                        </div>
+                                        <div class="my-4">
+                                            <p>Riwayat penyakit Hewan : </p>
+                                            <h3>{{$p->riwayat_penyakit}}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-10 mr-20 mb-40 w-[55%]">
+                                        <span class=" text-sm font-bold">Payment Informations</span>
+                                        <div class="grid text-sm gap-6 mt-3 mb-6 md:grid-cols-3">
+                                            <div class="flex-col w-48">
+                                                <div class="text-center text-green-500 text-2xl">
+                                                    @format($p->total)
+                                                </div>
+                                                <div class="text-center">
+                                                    Total Pembayaran
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,9 +142,9 @@
         </tr>
 
         <?php  $i = 0; ?>
-        @foreach ($penitipan as $g)
+        @foreach ($penitipan as $p)
         @if ($p->dilayani == 'terlayani')
-        @if ($loop->index < 20)
+        {{-- @if ($loop->index < 20) --}}
         <a href="#" class="cursor-pointer hover:bg-slate-300">
             <tr id="myBtn{{$p->id}}" data-target="#detailProduk{{$p->id}}" class="py-6 my-6 h-16 divide-y-2 divide-y-reverse text-slate-700 divide-gray-200 cursor-pointer hover:bg-slate-200">
                 <td>{{++$i}}</td>
@@ -99,9 +157,42 @@
                 </td>
             </tr>
         </a>
-        @endif
+        {{-- @endif --}}
         @endif
         @endforeach
     </table>
 </div>
+@endsection
+
+
+@section('script-manual')
+@foreach ($penitipan as $p)
+<script>
+    // Get the modal
+    var modal{{$p->id}} = document.getElementById("editModal{{$p->id}}");
+
+    // Get the button that opens the modal
+    var btn{{$p->id}} = document.getElementById("myBtn{{$p->id}}");
+
+    // Get the <span> element that closes the modal
+    var span{{$p->id}} = document.getElementById("close{{$p->id}}");
+
+    // When the user clicks on the button, open the modal
+    btn{{$p->id}}.onclick = function() {
+        modal{{$p->id}}.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span{{$p->id}}.onclick = function() {
+        modal{{$p->id}}.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal{{$p->id}}) {
+            modal{{$p->id}}.style.display = "none";
+        }
+    }
+</script>
+@endforeach
 @endsection

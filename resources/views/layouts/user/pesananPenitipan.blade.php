@@ -39,7 +39,7 @@
     <div class="mt-5">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
         @foreach($penitipan as $p)
-            <div class="my-2 mx-4 bg-white p-4 px-4 h-[350px] pesanan-item" data-category="{{ $p->paid }}" data-dilayani="{{ $p->dilayani}}">
+            <div class="my-2 mx-4 bg-white p-4 pesanan-item px-4 h-[350px]" data-category="{{ $p->paid }}" data-dilayani="{{ $p->dilayani}}">
                 <div class="text-sm">
                     <h3 class="font-bold">ID {{$p->id}}</h3>
                     <p>{{ \Carbon\Carbon::parse($p->tanggal_checkout)->format('d-m-Y') }}</p>
@@ -62,8 +62,9 @@
                         @if ($p->paid == 'unpaid')
                         <button type="button" id="pay-button{{$p->id}}" class="text-white bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-3 py-1 w-full mb-1">Bayar Sekarang</button>
                         <button id="myBtn{{$p->id}}" data-target="#detailProduk{{$p->id}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-3 py-1 w-full">Detail</button>
-                        {{-- @else
-                        <button type="button" class="text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 mr-2">Review</button> --}}
+                        @else
+                        {{-- <button type="button" class="text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 mr-2">Review</button> --}}
+                        <button id="myBtn{{$p->id}}" data-target="#detailProduk{{$p->id}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-rose-300 font-medium rounded-lg text-sm px-3 py-1 w-full mt-5">Detail</button>
                         @endif
 
                     </div>
@@ -77,7 +78,7 @@
                             <h5 class="modal-title text-lg text-slate-800">ID {{$p->id}}</h5>
                             <span class="close-manual" id="close{{$p->id}}">&times;</span>
                         </div>
-                        <h5 class="modal-title text-sm text-slate-400 px-14">{{ \Carbon\Carbon::parse($p->tanggal_grooming)->format('d-m-Y') }}</h5>
+                        <h5 class="modal-title text-sm text-slate-400 px-14">{{ \Carbon\Carbon::parse($p->tanggal_penitipan)->format('d-m-Y') }}</h5>
                         <div>
                             <div class="my-7 text-xl font-semibold px-14">
                                 Detail Order
@@ -163,8 +164,8 @@
     function filterContent(status) {
         // Menampilkan semua pesanan
         var pesananItems = document.getElementsByClassName('pesanan-item');
-        for (ar i = 0; i < pesananItems.length; i++) {
-            pesananItems[i].style.display = 'block';
+        for (var i = 0; i < pesananItems.length; i++) {
+            pesananItems[i].style.display = 'inline';
         }
 
         // Menyembunyikan pesanan yang tidak sesuai dengan kondisi
@@ -185,33 +186,35 @@
     }
 </script>
 @foreach ($penitipan as $p)
-    <script type="text/javascript">
-        // For example trigger on button clicked, or any time you need
-        var payButton{{$p->id}} = document.getElementById('pay-button{{$p->id}}');
-        payButton{{$p->id}}.addEventListener('click', function () {
-        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-        window.snap.pay('{{$p->token}}', {
-            onSuccess: function(result){
-            /* You may add your own implementation here */
-            // alert("payment success!");
-            window.location.href = '/pesanan/grooming'
-            console.log(result);
-            },
-            onPending: function(result){
-            /* You may add your own implementation here */
-            alert("wating your payment!"); console.log(result);
-            },
-            onError: function(result){
-            /* You may add your own implementation here */
-            alert("payment failed!"); console.log(result);
-            },
-            onClose: function(){
-            /* You may add your own implementation here */
-            alert('you closed the popup without finishing the payment');
-            }
-        })
-        });
-    </script>
+@if ($p->paid == 'unpaid')
+<script type="text/javascript">
+    // For example trigger on button clicked, or any time you need
+    var payButton{{$p->id}} = document.getElementById('pay-button{{$p->id}}');
+    payButton{{$p->id}}.addEventListener('click', function () {
+    // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+    window.snap.pay('{{$p->token}}', {
+        onSuccess: function(result){
+        /* You may add your own implementation here */
+        // alert("payment success!");
+        window.location.href = '/pesanan/grooming'
+        console.log(result);
+        },
+        onPending: function(result){
+        /* You may add your own implementation here */
+        alert("wating your payment!"); console.log(result);
+        },
+        onError: function(result){
+        /* You may add your own implementation here */
+        alert("payment failed!"); console.log(result);
+        },
+        onClose: function(){
+        /* You may add your own implementation here */
+        alert('you closed the popup without finishing the payment');
+        }
+    })
+    });
+</script>
+@endif
     <script>
         // Get the modal
         var modal{{$p->id}} = document.getElementById("editModal{{$p->id}}");
@@ -239,6 +242,6 @@
             }
         }
     </script>
-    @endforeach
+@endforeach
 
 @endsection
