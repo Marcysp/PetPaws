@@ -25,7 +25,7 @@
                     <td>@format($g->harga)</td>
                     <td><button id="myBtnG{{$g->id}}" data-target="#editgrooming{{$g->id}}" class="show-modal py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-0 text-xl"><a href="#"><i class='bx bx-message-square-edit'></i></a></button>
                         <button id="myBtnGdetail{{$g->id}}" data-target="#detailGrooming{{$g->id}}" class="py-[3px] px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-0"><a href="#"><i class='bx bxs-detail'></i></a></button>
-                        <button class="py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-0 text-xl"><a href="/service-paket/grooming/delete/{{$g->id}}"><i class='bx bxs-trash'></i></a></button></td>
+                        <button class="py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-0 text-xl"><a href="/service-paket/grooming/delete/{{$g->id}}" onclick="return confirm('Yakin igin menghapus paket Grooming?')"><i class='bx bxs-trash'></i></a></button></td>
                 </tr>
                 {{-- Modal edit--}}
                 <div class="pt-20 bg-white px-3 md:px-10 modal-manual fade myModal" id="editGrooming{{$g->id}}">
@@ -165,7 +165,7 @@
                     <td>@format($p->harga)</td>
                     <td><button id="myBtnP{{$p->id}}" data-target="#editPenitipan{{$p->id}}" class="py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-amber-500 text-white hover:bg-amber-600 focus:outline-none focus:ring-0 text-xl"><a href="#"><i class='bx bx-message-square-edit'></i></a></button>
                         <button id="myBtnPdetail{{$p->id}}" data-target="#detailPenitipan{{$p->id}}" class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-0"><a href="#"><i class='bx bxs-detail'></i></a></button>
-                        <button class="py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-0 text-xl"><a href="/service-paket/penitipan/delete/{{$p->id}}"><i class='bx bxs-trash'></i></a></button></td>
+                        <button class="py-0 px-1 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-0 text-xl"><a href="/service-paket/penitipan/delete/{{$p->id}}" onclick="return confirm('Yakin igin menghapus paket penitipan?')"><i class='bx bxs-trash'></i></a></button></td>
                 </tr>
                 {{-- Modal edit--}}
                  <div class="pt-20 bg-white px-3 md:px-10 modal-manual fade myModal" id="editPenitipan{{$p->id}}">

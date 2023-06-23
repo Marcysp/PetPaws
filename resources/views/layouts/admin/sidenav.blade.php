@@ -41,7 +41,7 @@
         <li class="hover:bg-pink-400 hover:text-white">
             <div class="iocn-link">
                 <a href="#">
-                    <i class='bx bx-line-chart'></i>
+                    <i class='bx bx-list-ul'></i>
                     <span class="link_name">Pesanan</span>
                 </a>
                 <i class='bx bxs-chevron-down arrow'></i>
@@ -51,15 +51,6 @@
                 <li><a href="/admin/pesanan/produk">Pesanan Produk</a></li>
                 <li><a href="/admin/pesanan/grooming">Pesanan Grooming</a></li>
                 <li><a href="/admin/pesanan/penitipan">Pesanan Penitipan</a></li>
-            </ul>
-        </li>
-        <li class="hover:bg-pink-400 hover:text-white">
-            <a href="#">
-                <i class='bx bx-line-chart'></i>
-                <span class="link_name">Chart</span>
-            </a>
-            <ul class="sub-menu blank">
-                <li><a class="link_name" href="#">Chart</a></li>
             </ul>
         </li>
         <li class="hover:bg-pink-500 hover:text-white">

@@ -4,8 +4,11 @@
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 mt-24 mx-9">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+      {{-- <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
         <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <li class="hidden">
+            <a href="#" onclick="filterContent('all')" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{all</a>
+          </li>
           <li>
               <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbarBrand" class="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Brand <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
               <!-- Dropdown menu -->
@@ -46,7 +49,7 @@
               </div>
           </li>
         </ul>
-      </div>
+      </div> --}}
       <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
         <div class="flex items-center md:ml-auto md:pr-4">
             <form action="/produk" method="GET">
@@ -66,7 +69,7 @@
     <div class="justify-center mx-auto md:max-w-5xl ">
         <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 mx-auto pesanan-item">
             @foreach ($produk as $p)
-            <div class="bg-cyan-100 mx-1 mb-2 sm:mb-3 md:mx-4 md:mb-8 max-w-[120px] sm:max-w-[160px] md:max-w-[190px] lg:max-w-[230px] sm:min-h-[170px] md:min-h-[190px] min-h-[150px]">
+            <div class="bg-cyan-100 mx-1 mb-2 sm:mb-3 md:mx-4 md:mb-8 max-w-[120px] sm:max-w-[160px] md:max-w-[190px] lg:max-w-[230px] sm:min-h-[170px] md:min-h-[190px] min-h-[150px] pesanan-item" data-category="{{ $p->produk_kategori->nama_kategori }}" data-hewan="{{ $p->kategori_hewan->nama_hewan }}" data-brand="{{ $p->produk_brand->nama_brand}}">
                 <a href="#" id="myBtn{{$p->id}}" data-target="#editModal{{$p->id}}" class="group relative z-0">
                     <div class="aspect-h-1 aspect-w-1 w-auto h-32 sm:h-44 md:h-52 overflow-hidden rounded-none bg-white xl:aspect-h-8 xl:aspect-w-7 justify-center">
                         <center><img src="{{ asset("assets/img/imgData/$p->img") }}" alt="{{$p->nama_produk}}" class="h-full w-auto object-cover object-center group-hover:opacity-75"></center>
@@ -88,6 +91,32 @@
 @endsection
 
 @section('script-manual')
+{{-- <script>
+    function filterContent(status) {
+        // Menampilkan semua pesanan
+        var pesananItems = document.getElementsByClassName('pesanan-item');
+        for (var i = 0; i < pesananItems.length; i++) {
+            pesananItems[i].style.display = 'inline';
+        }
+
+        // Menyembunyikan pesanan yang tidak sesuai dengan kondisi
+        if (status !== 'all') {
+            for (var i = 0; i < pesananItems.length; i++) {
+                var category = pesananItems[i].getAttribute('data-category');
+                var brand = pesananItems[i].getAttribute('data-brand');
+                var hewan = pesananItems[i].getAttribute('data-hewan');
+
+                if (status === 'unpaid' && category !== 'unpaid') {
+                    pesananItems[i].style.display = 'none';
+                } else if (status === 'proses' && (dilayaniStatus !== 'proses' || category !== 'paid')) {
+                    pesananItems[i].style.display = 'none';
+                } else if (status === 'terlayani' && dilayaniStatus !== 'terlayani') {
+                    pesananItems[i].style.display = 'none';
+                }
+            }
+        }
+    }
+</script> --}}
 @foreach ($produk as $p)
 <script>
     // Get the modal

@@ -47,7 +47,14 @@ class listOrderController extends Controller
 
     public function penitipanList(Request $request)
     {
-        $penitipan = Penitipan::where('paid', 'paid')->get();
+        if ($request->has('search')) {
+            $penitipan =  Penitipan::where('id','LIKE','%' .$request->search. '%')
+                ->where('paid', 'paid')
+                ->get();
+        } else {
+            $penitipan = Penitipan::where('paid', 'paid')
+            ->get();
+        }
 
         return view('layouts.admin.pesananPenitipan', compact('penitipan'));
     }

@@ -5,7 +5,7 @@
 @section('title-nav-2') Grooming Order @endsection
 @section('search-nav')
 <div class="flex items-center md:ml-auto md:pr-11 mt-4">
-    <form action="admin/grooming/grooming" method="GET">
+    <form action="/admin/pesanan/grooming" method="GET">
         <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
             <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
                 <i class='bx bx-search-alt z-10'></i>

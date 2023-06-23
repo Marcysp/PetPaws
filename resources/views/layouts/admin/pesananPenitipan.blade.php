@@ -6,7 +6,7 @@
 
 @section('search-nav')
 <div class="flex items-center md:ml-auto md:pr-11 mt-4">
-    <form action="admin/penitipan/penitipan" method="GET">
+    <form action="/admin/pesanan/penitipan" method="GET">
         <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
             <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
                 <i class='bx bx-search-alt z-10'></i>
@@ -40,7 +40,7 @@
                     <td>@format($p->total)</td>
                     <td>
                         <button id="myBtn{{$p->id}}" data-target="#detailProduk{{$p->id}}" class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-0"><a href="#"><i class='bx bxs-detail'></i></a></button>
-                        <button class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-0"><a href="/produk/delete/{{$p->id}}"><i class='bx bxs-trash'></i></a></button>
+                        <button type="button" class="text-yellow-400 hover:text-white border bg-yellow-400 bg-opacity-40 border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-2xl text-sm px-3 py-1.5 text-center mr-2 mb-2"><a href="/produk/selesai/{{$p->id}}" onclick="return confirm('Anda yakin pesanan telah dilayani?')">Proses</a></button>
                     </td>
                 </tr>
             </a>
@@ -153,7 +153,7 @@
                 <td>@format($p->total)</td>
                 <td>
                     <button id="myBtn{{$p->id}}" data-target="#detailProduk{{$p->id}}" class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-0"><a href="#"><i class='bx bxs-detail'></i></a></button>
-                    <button class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-0"><a href="/produk/delete/{{$p->id}}"><i class='bx bxs-trash'></i></a></button>
+                    <button type="button" class="text-green-400 hover:text-white border bg-green-400 bg-opacity-40 border-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-2xl text-sm px-3 py-1.5 text-center mr-2 mb-2 ">Terlayani<i class='bx bx-check'></i></button>
                 </td>
             </tr>
         </a>

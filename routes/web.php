@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StokController;
+use App\Http\Controllers\trashController;
 use Illuminate\Routing\RouteGroup;
 
 /*
@@ -74,6 +75,7 @@ Route::group(['middleware' => ['auth','is_admin:1']],function(){
     Route::get('/admin/pesanan/grooming', [listOrderController::class, 'groomingList']);
     Route::get('/admin/pesanan/produk', [listOrderController::class, 'produkList']);
     Route::get('/admin/pesanan/penitipan', [listOrderController::class, 'penitipanList']);
+    Route::get('/archive/produk', [trashController::class, 'produk']);
 });
 
 // User
